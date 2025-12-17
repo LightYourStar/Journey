@@ -5,25 +5,12 @@ namespace JO
 {
     public class ResMgr
     {
-        protected Dictionary<ResSceneType, Dictionary<string, GameObject>> m_CachePrefabs = new Dictionary<ResSceneType, Dictionary<string, GameObject>>();
-
-
         private const string IMGPATH = "Art/Dynamic/";
 
-        private GameObject LoadPrefab(string path, ResSceneType resSceneType)
+        private GameObject LoadPrefab(string path)
         {
-            Dictionary<string, GameObject> prefabs = m_CachePrefabs[resSceneType];
-            if (prefabs.ContainsKey(path))
-            {
-                GameObject prefab = prefabs[path];
-                return prefab;
-            }
-            else
-            {
-                GameObject prefab = LoadAssets<GameObject>(path, ResType.Prefab);
-                prefabs.Add(path, prefab);
-                return prefab;
-            }
+            GameObject prefab = LoadAssets<GameObject>(path, ResType.Prefab);
+            return prefab;
         }
 
         public virtual void UnLoadAssets()
@@ -49,9 +36,9 @@ namespace JO
             return LoadAssets<T>(path, ResType.Asset);
         }
 
-        public GameObject InstantiateObj(string path,ResSceneType resSceneType, Transform parent = null)
+        public GameObject InstantiateObj(string path, Transform parent = null)
         {
-            GameObject obj = LoadPrefab(path, resSceneType);
+            GameObject obj = LoadPrefab(path);
             if (obj == null)
             {
                 Debug.LogError("obj is null, the path : " + path);
@@ -59,9 +46,9 @@ namespace JO
             }
             return Object.Instantiate<GameObject>(obj, parent);
         }
-        public GameObject InstantiateLoadObj(string path, ResSceneType resSceneType, Transform parent = null)
+        public GameObject InstantiateLoadObj(string path, Transform parent = null)
         {
-            return InstantiateObj(path, resSceneType, parent);
+            return InstantiateObj(path, parent);
         }
 
         public void DestroyGameObj(GameObject go)
@@ -84,12 +71,5 @@ namespace JO
         Asset,//unity资源
         Material,//unity资源
         Texture,//图片
-    }
-
-    public enum ResSceneType
-    {
-        NormalRes = 1,//
-        NormalUI = 2,// 普通ui
-        Resident = 101,// 常驻资源。不卸载 且 只能自己关的ui
     }
 }

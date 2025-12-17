@@ -26,7 +26,7 @@ namespace JO.UIManager
 
         private const int LayerStep = 20;
 
-        
+
 
         private static UIMgr _instance;
 
@@ -180,7 +180,7 @@ namespace JO.UIManager
             return false;
         }
 
-       
+
         public static void OpenUI(string uiName, object param1 = null, object param2 = null, object param3 = null,
             Action callback = null)
         {
@@ -204,7 +204,7 @@ namespace JO.UIManager
                 OpenFullOrPop(uiName,param1,param2,param3,callback);
             else
             {
-                OpenTipOrTop(uiName,param1,param2,param3,callback); 
+                OpenTipOrTop(uiName,param1,param2,param3,callback);
             }
 
         }
@@ -413,7 +413,7 @@ namespace JO.UIManager
         private void SetTopLay(UIViewBase view)
         {
 
-            if (view == null)   
+            if (view == null)
                 return;
 
             if (view.UILayer == UILayer.Tip)
@@ -462,9 +462,9 @@ namespace JO.UIManager
         private void OpenTipOrTop(string uiName, object param1 = null, object param2 = null, object param3 = null,
             Action callback = null)
         {
-           
+
             UILayer uILayer = UIConf.GetUILayer(uiName);
-            
+
             UIViewInfo uIViewInfo = Instance.GetUIViewInfoByAsset(uiName);
 
             if(uIViewInfo == null)
@@ -472,7 +472,7 @@ namespace JO.UIManager
                 Debug.LogError($" no uiviewInfo in{uiName}");
                 return;
             }
-            
+
             bool isExclusion = uIViewInfo.isExclusion;
 
             var strack = uILayer == UILayer.Tip ? tipViewStack : topViewStack;
@@ -548,14 +548,12 @@ namespace JO.UIManager
         private GameObject LoadUIPrefab(string uiName)
         {
             string path = $"Prefabs/UIView/{uiName}";
-            GameObject prefab = Resources.Load<GameObject>(path);
+            GameObject prefab = Global.gApp.gResMgr.InstantiateObj(path, UIRoot.transform);
             if (prefab == null)
             {
                 Debug.LogError($"LoadUIPrefab error: prefab is null for path {path}");
                 return null;
             }
-            prefab = GameObject.Instantiate(prefab);
-            prefab.transform.SetParent(UIRoot.transform);
             Canvas canvas = prefab.GetComponent<Canvas>();
             if(canvas == null)
             {
@@ -576,17 +574,17 @@ namespace JO.UIManager
             return prefab;
         }
 
-      
+
         private UIViewInfo GetUIViewInfoByAsset(string uiName)
         {
             string path = $"Prefabs/UIView/{uiName}";
-            GameObject prefab = Resources.Load<GameObject>(path);
+            GameObject prefab = Global.gApp.gResMgr.LoadAssets<GameObject>(path, ResType.Prefab);
             if (prefab == null)
             {
                 Debug.LogError($"LoadUIPrefab error: prefab is null for path {path}");
                 return null;
             }
-           
+
             return prefab.GetComponent<UIViewInfo>();
         }
 
@@ -740,7 +738,7 @@ namespace JO.UIManager
 
             view.UIObj.SetActive(isActive);
             if (isActive)
-            { 
+            {
                 view.OnOpen(view.param1, view.param2, view.param3);
                 view.IsShow = true;
             }

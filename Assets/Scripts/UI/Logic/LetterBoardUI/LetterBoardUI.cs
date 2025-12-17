@@ -729,14 +729,7 @@ namespace UIManager
 
         private GameObject InstantiateObj(string path, Transform parent)
         {
-            GameObject prefab = Resources.Load<GameObject>(path);
-            if (prefab == null)
-            {
-                Debug.LogError($"Load failed: {path}");
-                return null;
-            }
-
-            GameObject go = Object.Instantiate(prefab, parent);
+            GameObject go = Global.gApp.gResMgr.InstantiateObj(path, parent);
             if (!go.activeSelf) go.SetActive(true);
 
             return go;

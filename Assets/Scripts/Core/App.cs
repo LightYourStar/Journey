@@ -19,7 +19,7 @@ namespace JO
         {
             m_Global = global;
             InitNode(keepNode);
-            gResMgr = new ResMgr();
+            gResMgr = new AddressableResMgr();
 
             m_Global.StartCoroutine(PreInit());
             // OnTestChangeScene();

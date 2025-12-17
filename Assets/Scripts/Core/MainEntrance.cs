@@ -1,4 +1,8 @@
+using System.IO;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.AddressableAssets.ResourceLocators;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace JO
 {
@@ -19,16 +23,36 @@ namespace JO
         public static void LoadKeepNode()
         {
             string path = "Prefabs/Persistent/KeepNode";
-            var prefab = Resources.Load<GameObject>(path);
-            if (prefab == null)
-            {
-                Debug.LogError($"Load failed: {path}");
-                return ;
-            }
+            // var prefab = Resources.Load<GameObject>(path);
+            // if (prefab == null)
+            // {
+            //     Debug.LogError($"Load failed: {path}");
+            //     return ;
+            // }
+            //
+            // var go = Instantiate(prefab);
+            // go.name = "KeepNode";
+            // if (!go.activeSelf) go.SetActive(true);
+            ReloadAddressables();
+            AsyncOperationHandle<GameObject> keepNodeHandle = Addressables.InstantiateAsync("PrefabsN/KeepNode.prefab");
+            keepNodeHandle.WaitForCompletion();
+        }
 
-            var go = Instantiate(prefab);
-            go.name = "KeepNode";
-            if (!go.activeSelf) go.SetActive(true);
+        private static void ReloadAddressables()
+        {
+// #if USE_ADDRESSABLES
+            // string catalogFile = MainIoUtils.BundlePath + "/catalog.json";
+            // Debug.Log(" InitAddressables 111 " + catalogFile);
+            // if (!File.Exists(catalogFile))
+            // {
+            //     return;
+            // }
+            // Debug.Log(" InitAddressables 2222 " + catalogFile);
+            // Addressables.ClearResourceLocators();
+            // AsyncOperationHandle<IResourceLocator> loadLog = Addressables.LoadContentCatalogAsync(catalogFile);
+            // loadLog.WaitForCompletion();
+// #endif
+
         }
 
         /// <summary>

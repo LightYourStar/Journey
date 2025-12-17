@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using JO;
 using UnityEngine;
 
 public class SoundMgr
@@ -25,7 +25,7 @@ public class SoundMgr
 
     private string bgmName = string.Empty;
 
-    
+
     private AudioSource bgmAudioSource = null;
 
     private AudioSource BgmAudioSource
@@ -71,7 +71,7 @@ public class SoundMgr
             return;
         }
         bgmName = name;
-        AudioClip clip = Resources.Load<AudioClip>($"MP3/Gamejam/{name}");
+        AudioClip clip = Global.gApp.gResMgr.LoadAssets<AudioClip>($"MP3/Gamejam/{name}", ResType.Clip);
         BgmAudioSource.clip = clip;
         BgmAudioSource.Play();
     }
@@ -83,7 +83,7 @@ public class SoundMgr
 
     private void _PlaySound(string name)
     {
-        AudioClip clip = Resources.Load<AudioClip>($"MP3/Gamejam/{name}");
+        AudioClip clip = Global.gApp.gResMgr.LoadAssets<AudioClip>($"MP3/Gamejam/{name}", ResType.Clip);
         Sound.PlayOneShot(clip);
     }
 }
