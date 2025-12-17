@@ -1,0 +1,48 @@
+﻿{
+    "configs": {
+        "field_row": 1,
+        "type_row": 3,
+        "data_from_row": 4,
+        "comment_row": 0
+    },
+    "excels": [
+        {
+            "excel_name": "Assets/_DesignData/Excel/J_剧情配置.xlsx",
+            "script_directory": "Assets/Scripts/ConfigClass",
+            "asset_directory": "Assets/Resources/Configs",
+            "name_space": "JO",
+            "use_hash_string": false,
+            "hide_asset_properties": true,
+            "generate_get_method_if_possible": true,
+            "key_to_multi_values": false,
+            "use_public_items_getter": true,
+            "compress_color_into_int": true,
+            "treat_unknown_types_as_enum": false,
+            "generate_tostring_method": true,
+            "child_excel_names": [
+                "Dialogue",
+                "EndShow"
+            ]
+        },
+        {
+            "excel_name": "Assets/_DesignData/Excel/L_信件.xlsx",
+            "script_directory": "Assets/Scripts/ConfigClass",
+            "asset_directory": "Assets/Resources/Configs",
+            "name_space": "JO",
+            "use_hash_string": false,
+            "hide_asset_properties": true,
+            "generate_get_method_if_possible": true,
+            "key_to_multi_values": false,
+            "use_public_items_getter": true,
+            "compress_color_into_int": true,
+            "treat_unknown_types_as_enum": false,
+            "generate_tostring_method": true,
+            "child_excel_names": [
+                "LetterMain",
+                "LetterColumn",
+                "LetterPiece",
+                "LetterOutCome"
+            ]
+        }
+    ]
+}

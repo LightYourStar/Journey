@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7843d418ec47d2e458434efbdc9b9a80, type: 3}
+  m_Name: LetterOutCome
+  m_EditorClassIdentifier: 
+  _Items:
+  - _Id: 100001
+    _Desc: "\u7B2C1\u5E55-\u5931\u8D25\u9ED8\u8BA4"
+    _Rule:
+    - /
+    _Result: 1
+  - _Id: 100002
+    _Desc: "\u7B2C1\u5E55-\u80DC\u5229\u7ED3\u679C"
+    _Rule:
+    - 101_1001_1004_1003_1002_1005
+    _Result: 2
+  - _Id: 200001
+    _Desc: "\u7B2C2\u5E55-\u5931\u8D25\u9ED8\u8BA4"
+    _Rule:
+    - /
+    _Result: 1
+  - _Id: 200002
+    _Desc: "\u7B2C2\u5E55-\u80DC\u5229\u7ED3\u679C"
+    _Rule:
+    - 201_2001_2002_2003_2014_2005
+    - 201_2011_2012_2013_2004_2015
+    _Result: 2
+  - _Id: 300001
+    _Desc: "\u7B2C3\u5E55-\u5931\u8D25\u9ED8\u8BA4"
+    _Rule:
+    - /
+    _Result: 1
+  - _Id: 300002
+    _Desc: "\u7B2C3\u5E55-\u80DC\u5229\u7ED3\u679C"
+    _Rule:
+    - 301_3001_3002_3003_3014_3005_3016_3007
+    - 301_3011_3012_3013_3004_3015_3006_3017
+    _Result: 2
