@@ -691,6 +691,9 @@
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ResourceManager">
+      <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.ResourceManager.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
