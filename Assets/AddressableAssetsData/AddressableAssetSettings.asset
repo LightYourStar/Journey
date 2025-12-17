@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: e55a06b0e0453564cb23ed80bf61cef2
+  m_DefaultGroup: 5e36dea2f470c954f86424a67dcd8059
   m_currentHash:
     serializedVersion: 2
-    Hash: 14c3da1f96938220d790058590eac736
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -44,8 +44,14 @@ MonoBehaviour:
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
+  - {fileID: 11400000, guid: f63ccc1ee336fe942947afb62c1ad726, type: 2}
+  - {fileID: 11400000, guid: ace84358313360b418a7593265c9872d, type: 2}
+  - {fileID: 11400000, guid: 8b6ac21aeb785934d9a3ef4563e96b8a, type: 2}
+  - {fileID: 11400000, guid: 08e36c64e9ade00439b8cc26dbb657fc, type: 2}
+  - {fileID: 11400000, guid: 46990aca8a16c4a4a9ee78714f2d4641, type: 2}
   - {fileID: 11400000, guid: ad21d4cc5a54cab489b52fd5dd92f03b, type: 2}
-  - {fileID: 11400000, guid: 092536dc63df46042adb690722b21750, type: 2}
+  - {fileID: 11400000, guid: 3be8a7b289ed8c541b4081bb28d9543a, type: 2}
+  - {fileID: 11400000, guid: 7c791dd08d99c4a49bf84e29f10dd95f, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -56,6 +62,20 @@ MonoBehaviour:
     - m_InheritedParent: 
       m_Id: b3f7c44f7e7daa045b2c102e34785a68
       m_ProfileName: Default
+      m_Values:
+      - m_Id: 1c7c0979b45bd7142a6c7eebb272d94c
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 6e5b586aa0a809e41b0ede4e773bed63
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 91f077ee615cae14c9d10a96f1f03af3
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: ebc75addbe007a340994e099e7476860
+        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+      - m_Id: f497c665c8a269d45aff0c5c63ff0471
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+    - m_InheritedParent: 
+      m_Id: 9a32f98f834f7e74597a4030f10bd8db
+      m_ProfileName: New Profile
       m_Values:
       - m_Id: 1c7c0979b45bd7142a6c7eebb272d94c
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'

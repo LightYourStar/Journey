@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Mp3
+  m_EditorClassIdentifier: 
+  m_GroupName: Mp3
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 9ed08a59f5021bf47b7d12431f7e2fdb
+  m_SerializeEntries:
+  - m_GUID: a04089cb5f3104b4fa5c0b0339995760
+    m_Address: Assets/Resbundle/MP3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8efb916e76de0304bbd9b887ddec679b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3f152b091b314364883630fe2a92c34c, type: 2}
+    - {fileID: 11400000, guid: 75b9607e2772828459b75d7931bc2507, type: 2}
