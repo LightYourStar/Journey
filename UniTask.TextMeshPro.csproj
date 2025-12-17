@@ -340,6 +340,12 @@
     <Reference Include="EPPlus">
       <HintPath>D:\BLearnProject\Journey\Assets\Scripts\Editor\Excel2ScriptableObject\Plugins\Excel\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="dnlib">
+      <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\Plugins\dnlib.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4">
+      <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\Plugins\LZ4.dll</HintPath>
+    </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
     </Reference>

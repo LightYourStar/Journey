@@ -143,6 +143,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\package.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\ThirdPart\UniTask\ProjectSettings\ProjectVersion.txt" />
     <None Include="Assets\ThirdPart\UniTask\Assets\StreamingAssets\test.txt" />
@@ -402,6 +403,12 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.unity.visualscripting@1.9.4\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="dnlib">
+      <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\Plugins\dnlib.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4">
+      <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\Plugins\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -954,9 +961,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="HybridCLR.Runtime.csproj">
+      <Project>{fc64de43-ad32-e4f0-ae18-460faf84b787}</Project>
+      <Name>HybridCLR.Runtime</Name>
+    </ProjectReference>
     <ProjectReference Include="UniTask.DOTween.csproj">
       <Project>{53a93912-3d0e-4091-3f95-921c22e303f8}</Project>
       <Name>UniTask.DOTween</Name>
+    </ProjectReference>
+    <ProjectReference Include="HybridCLR.Editor.csproj">
+      <Project>{fbe00b60-0a01-fe5b-c7b8-87ccb9adbdc5}</Project>
+      <Name>HybridCLR.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.csproj">
       <Project>{0610ba4a-a1b2-2451-024d-a3ae940c18c9}</Project>

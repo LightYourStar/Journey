@@ -347,6 +347,12 @@
     <Reference Include="EPPlus">
       <HintPath>D:\BLearnProject\Journey\Assets\Scripts\Editor\Excel2ScriptableObject\Plugins\Excel\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="dnlib">
+      <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\Plugins\dnlib.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4">
+      <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\Plugins\LZ4.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
     </Reference>
@@ -920,9 +926,17 @@
       <Project>{cbdc0847-5f3b-c043-15ce-bb1fe1698902}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
+    <ProjectReference Include="HybridCLR.Runtime.csproj">
+      <Project>{fc64de43-ad32-e4f0-ae18-460faf84b787}</Project>
+      <Name>HybridCLR.Runtime</Name>
+    </ProjectReference>
     <ProjectReference Include="UniTask.DOTween.csproj">
       <Project>{53a93912-3d0e-4091-3f95-921c22e303f8}</Project>
       <Name>UniTask.DOTween</Name>
+    </ProjectReference>
+    <ProjectReference Include="HybridCLR.Editor.csproj">
+      <Project>{fbe00b60-0a01-fe5b-c7b8-87ccb9adbdc5}</Project>
+      <Name>HybridCLR.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.csproj">
       <Project>{0610ba4a-a1b2-2451-024d-a3ae940c18c9}</Project>
