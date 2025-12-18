@@ -578,7 +578,7 @@ namespace JO.UIManager
         private UIViewInfo GetUIViewInfoByAsset(string uiName)
         {
             string path = $"Prefabs/UIView/{uiName}";
-            GameObject prefab = Global.gApp.gResMgr.LoadAssets<GameObject>(path, ResType.Prefab);
+            GameObject prefab = Global.gApp.gResMgr.LoadAssets<GameObject>(path+".prefab", ResType.Prefab);
             if (prefab == null)
             {
                 Debug.LogError($"LoadUIPrefab error: prefab is null for path {path}");

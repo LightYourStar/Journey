@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: ba68cfc3bfec7014a87bbd74d57f6eeb
   m_SerializeEntries:
   - m_GUID: 109e9bdd0fcc649c5bc59085c35bdc83
-    m_Address: Assets/Resbundle/Scenes
+    m_Address: Assets/ResBundle/Scenes
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

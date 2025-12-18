@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 9ed08a59f5021bf47b7d12431f7e2fdb
   m_SerializeEntries:
   - m_GUID: a04089cb5f3104b4fa5c0b0339995760
-    m_Address: Assets/Resbundle/MP3
+    m_Address: Assets/ResBundle/MP3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

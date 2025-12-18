@@ -1,37 +1,49 @@
 using System;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Collections;
+using UnityEngine;
 
 public class DelayedCallback
 {
-    private CancellationTokenSource _cancellationTokenSource;
+    private Coroutine m_Coroutine;
+    private static MonoBehaviour s_Host;
 
     /// <summary>
-    /// ÑÓ³ÙÖ¸¶¨µÄÊ±¼äºóÖ´ĞĞ»Øµ÷£¬²¢·µ»ØÒ»¸ö¿ÉÓÃÓÚÈ¡ÏûÑÓ³ÙµÄÈÎÎñµÄ¶ÔÏó¡£
+    /// ç¡®ä¿æœ‰ä¸€ä¸ªä¸»çº¿ç¨‹å®¿ä¸»
     /// </summary>
-    /// <param name="delay">ÑÓ³ÙµÄÊ±¼ä</param>
-    /// <param name="callback">ÒªÖ´ĞĞµÄ»Øµ÷¶¯×÷</param>
-    /// <returns>¿ÉÓÃÓÚÈ¡ÏûÑÓ³ÙµÄCancellationTokenSource</returns>
-    public CancellationTokenSource SetTimeout(TimeSpan delay, Action callback)
+    private static MonoBehaviour GetHost()
     {
-        _cancellationTokenSource = new CancellationTokenSource();
-        Task.Delay(delay, _cancellationTokenSource.Token)
-            .ContinueWith(task =>
-            {
-                if (!task.IsCanceled)
-                {
-                    callback?.Invoke();
-                }
-            }, TaskScheduler.Default);
+        if (s_Host != null) return s_Host;
 
-        return _cancellationTokenSource;
+        var go = new GameObject("[DelayedCallback]");
+        UnityEngine.Object.DontDestroyOnLoad(go);
+        s_Host = go.AddComponent<DelayedCallbackHost>();
+        return s_Host;
     }
 
-    /// <summary>
-    /// È¡ÏûÑÓ³Ù»Øµ÷
-    /// </summary>
+    public void SetTimeout(TimeSpan delay, Action callback)
+    {
+        Cancel();
+
+        m_Coroutine = GetHost().StartCoroutine(DelayCoroutine(delay, callback));
+    }
+
     public void Cancel()
     {
-        _cancellationTokenSource?.Cancel();
+        if (m_Coroutine != null)
+        {
+            GetHost().StopCoroutine(m_Coroutine);
+            m_Coroutine = null;
+        }
     }
+
+    private IEnumerator DelayCoroutine(TimeSpan delay, Action callback)
+    {
+        yield return new WaitForSeconds((float)delay.TotalSeconds);
+        callback?.Invoke(); //ä¸€å®šåœ¨ä¸»çº¿ç¨‹
+    }
+
+    /// <summary>
+    /// ç©ºå®¿ä¸»
+    /// </summary>
+    private class DelayedCallbackHost : MonoBehaviour { }
 }

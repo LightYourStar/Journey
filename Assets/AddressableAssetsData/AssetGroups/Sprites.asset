@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 082916ba779ffc34980a0aea0ed4052f
   m_SerializeEntries:
   - m_GUID: 1ea7fb569ad233b43bfc306e6de933a8
-    m_Address: Assets/Resbundle/Sprites
+    m_Address: Assets/ResBundle/Sprites
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

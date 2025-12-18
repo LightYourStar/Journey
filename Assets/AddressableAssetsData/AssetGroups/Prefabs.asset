@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 1827e22d499c88d45ac479a5e06f59e7
   m_SerializeEntries:
   - m_GUID: b4fb4b2aef86d1347bbc7ab772097260
-    m_Address: Assets/Resbundle/Prefabs
+    m_Address: Assets/ResBundle/Prefabs
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

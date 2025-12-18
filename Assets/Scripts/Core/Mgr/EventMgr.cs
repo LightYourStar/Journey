@@ -71,7 +71,7 @@ public class SoundMgr
             return;
         }
         bgmName = name;
-        AudioClip clip = Global.gApp.gResMgr.LoadAssets<AudioClip>($"MP3/Gamejam/{name}", ResType.Clip);
+        AudioClip clip = Global.gApp.gResMgr.LoadAssets<AudioClip>($"MP3/Gamejam/{name}.mp3", ResType.Clip);
         BgmAudioSource.clip = clip;
         BgmAudioSource.Play();
     }
@@ -83,7 +83,7 @@ public class SoundMgr
 
     private void _PlaySound(string name)
     {
-        AudioClip clip = Global.gApp.gResMgr.LoadAssets<AudioClip>($"MP3/Gamejam/{name}", ResType.Clip);
+        AudioClip clip = Global.gApp.gResMgr.LoadAssets<AudioClip>($"MP3/Gamejam/{name}.mp3", ResType.Clip);
         Sound.PlayOneShot(clip);
     }
 }

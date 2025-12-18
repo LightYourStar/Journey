@@ -9,7 +9,7 @@ namespace JO
 
         private GameObject LoadPrefab(string path)
         {
-            GameObject prefab = LoadAssets<GameObject>(path, ResType.Prefab);
+            GameObject prefab = LoadAssets<GameObject>(path + ".prefab", ResType.Prefab);
             return prefab;
         }
 
@@ -27,12 +27,12 @@ namespace JO
         public Sprite LoadSprite(string name)
         {
             string path = IMGPATH + name;
-            return LoadAssets<Sprite>(path, ResType.Sprite);
+            return LoadAssets<Sprite>(path+".png", ResType.Sprite);//todo待扩展 不是所有的都是png
         }
 
         public T LoadGameDataN<T>(string name) where T : ScriptableObject
         {
-            string path = "Configs/" + name;
+            string path = "Configs/" + name + ".asset";
             return LoadAssets<T>(path, ResType.Asset);
         }
 

@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: a2985ff2ee99ed749943fe392728b4eb
   m_SerializeEntries:
   - m_GUID: f91eab99b1d416a49a83f960c7bf93b4
-    m_Address: Assets/Resbundle/Configs
+    m_Address: Assets/ResBundle/Configs
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -26,5 +26,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 8efb916e76de0304bbd9b887ddec679b, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 0ccdf338f5502c64dba3f855e7f09c5d, type: 2}
     - {fileID: 11400000, guid: 213b66769d4c11743b8180f870d46d87, type: 2}
+    - {fileID: 11400000, guid: 0ccdf338f5502c64dba3f855e7f09c5d, type: 2}

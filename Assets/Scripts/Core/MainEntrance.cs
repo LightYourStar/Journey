@@ -34,7 +34,7 @@ namespace JO
             // go.name = "KeepNode";
             // if (!go.activeSelf) go.SetActive(true);
             ReloadAddressables();
-            AsyncOperationHandle<GameObject> keepNodeHandle = Addressables.InstantiateAsync("PrefabsN/KeepNode.prefab");
+            AsyncOperationHandle<GameObject> keepNodeHandle = Addressables.InstantiateAsync("Assets/ResBundle/Prefabs/Persistent/KeepNode.prefab");
             keepNodeHandle.WaitForCompletion();
         }
 

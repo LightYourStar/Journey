@@ -24,8 +24,7 @@ namespace JO
                     return null;
                 }
 
-
-                AsyncOperationHandle<U> operationHandle = Addressables.LoadAssetAsync<U>(path);
+                AsyncOperationHandle<U> operationHandle = Addressables.LoadAssetAsync<U>("Assets/ResBundle/"+path);
                 if (operationHandle.Status == AsyncOperationStatus.Failed)
                 {
                     Debug.LogError(" 加载资源失败，请导出资源 " + path);
