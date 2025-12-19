@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Prefabs
+  m_Name: Prefab
   m_EditorClassIdentifier: 
-  m_GroupName: Prefabs
+  m_GroupName: Prefab
   m_Data:
     m_SerializedData: []
-  m_GUID: 1827e22d499c88d45ac479a5e06f59e7
+  m_GUID: b279cc820642796409b7dd04c1b7c4d2
   m_SerializeEntries:
   - m_GUID: b4fb4b2aef86d1347bbc7ab772097260
     m_Address: Assets/ResBundle/Prefabs
@@ -26,5 +26,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 8efb916e76de0304bbd9b887ddec679b, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: c6bc2d38dbae9ff4a95c48800567eef4, type: 2}
-    - {fileID: 11400000, guid: 0c6f481998c82ed458f47ae9339b5bc8, type: 2}
+    - {fileID: 11400000, guid: d3b1792cf76b40e43803947d4f557f71, type: 2}
+    - {fileID: 11400000, guid: bc4e4a5a566ae8f469b957bcb4d3fedb, type: 2}

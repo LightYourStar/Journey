@@ -17,7 +17,15 @@ namespace JO
 
         private static void StartGame()
         {
+            InitAddressables();
             LoadKeepNode();
+        }
+
+        private static void InitAddressables()
+        {
+            AsyncOperationHandle<IResourceLocator> init = Addressables.InitializeAsync();
+            init.WaitForCompletion();
+            ReloadAddressables();
         }
 
         public static void LoadKeepNode()
@@ -40,19 +48,16 @@ namespace JO
 
         private static void ReloadAddressables()
         {
-// #if USE_ADDRESSABLES
-            // string catalogFile = MainIoUtils.BundlePath + "/catalog.json";
-            // Debug.Log(" InitAddressables 111 " + catalogFile);
-            // if (!File.Exists(catalogFile))
-            // {
-            //     return;
-            // }
-            // Debug.Log(" InitAddressables 2222 " + catalogFile);
-            // Addressables.ClearResourceLocators();
-            // AsyncOperationHandle<IResourceLocator> loadLog = Addressables.LoadContentCatalogAsync(catalogFile);
-            // loadLog.WaitForCompletion();
-// #endif
-
+            string catalogFile = MainIoUtils.BundlePath + "/catalog.json";
+            Debug.Log(" InitAddressables 111 " + catalogFile);
+            if (!File.Exists(catalogFile))
+            {
+                return;
+            }
+            Debug.Log(" InitAddressables 2222 " + catalogFile);
+            Addressables.ClearResourceLocators();
+            AsyncOperationHandle<IResourceLocator> loadLog = Addressables.LoadContentCatalogAsync(catalogFile);
+            loadLog.WaitForCompletion();
         }
 
         /// <summary>

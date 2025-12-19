@@ -335,8 +335,14 @@
     <Reference Include="Unity.VisualScripting.IonicZip">
       <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.unity.visualscripting@1.9.4\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
     </Reference>
+    <Reference Include="dnlib">
+      <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\Plugins\dnlib.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.unity.visualscripting@1.9.4\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4">
+      <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\Plugins\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>D:\BLearnProject\Journey\Assets\Scripts\Editor\Excel2ScriptableObject\Plugins\Excel\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -346,12 +352,6 @@
     </Reference>
     <Reference Include="EPPlus">
       <HintPath>D:\BLearnProject\Journey\Assets\Scripts\Editor\Excel2ScriptableObject\Plugins\Excel\EPPlus.dll</HintPath>
-    </Reference>
-    <Reference Include="dnlib">
-      <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\Plugins\dnlib.dll</HintPath>
-    </Reference>
-    <Reference Include="LZ4">
-      <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\Plugins\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>D:\BLearnProject\Journey\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
@@ -905,8 +905,8 @@
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.SpriteShape.Editor">
-      <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
+    <Reference Include="Unity.ScriptableBuildPipeline.Editor">
+      <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
@@ -917,8 +917,8 @@
     <Reference Include="Unity.2D.IK.Editor">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.ScriptableBuildPipeline.Editor">
-      <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
+    <Reference Include="Unity.2D.SpriteShape.Editor">
+      <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
