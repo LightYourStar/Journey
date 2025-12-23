@@ -198,6 +198,13 @@
       "dependencies": {},
       "url": "https://packages.unity.cn"
     },
+    "com.unity.mobile.android-logcat": {
+      "version": "1.4.6",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.cn"
+    },
     "com.unity.render-pipelines.core": {
       "version": "14.0.12",
       "depth": 1,

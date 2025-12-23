@@ -15,9 +15,9 @@ MonoBehaviour:
   m_DefaultGroup: 5e36dea2f470c954f86424a67dcd8059
   m_currentHash:
     serializedVersion: 2
-    Hash: 07ed0289d7efa2fdfc8ab183c16b0d6b
+    Hash: 921a0bfa3a208daef9e35def4c7a9b1b
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -35,9 +35,9 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: 91f077ee615cae14c9d10a96f1f03af3
   m_RemoteCatalogLoadPath:
-    m_Id: 
+    m_Id: ebc75addbe007a340994e099e7476860
   m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
@@ -68,9 +68,9 @@ MonoBehaviour:
       - m_Id: 6e5b586aa0a809e41b0ede4e773bed63
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: 91f077ee615cae14c9d10a96f1f03af3
-        m_Value: ServerData/[BuildTarget]
+        m_Value: BuildCDN/game/android/aa
       - m_Id: ebc75addbe007a340994e099e7476860
-        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+        m_Value: '{MainApp.MainIoUtils.BundlePath}'
       - m_Id: f497c665c8a269d45aff0c5c63ff0471
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     - m_InheritedParent: 

@@ -1,0 +1,13 @@
+﻿{
+    "minAppVersionCode": 10000,
+    "resVersion": 2025122201,
+    "codeVersion": 2025122201,
+    "cdnBaseUrl": "http://172.18.18.28:8000/game/android/",
+    "addressablesRemotePath": "aa/",
+    "hotfixPath": "hotfix/",
+    "preDownloadLabels": [
+        "boot",
+        "common_ui"
+    ],
+    "files": []
+}

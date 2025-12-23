@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.AddressableAssets.Initialization;
 using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -10,39 +11,43 @@ namespace JO
     {
         private void Awake()
         {
-            InitFocusInfo();
             AdapterCanvas();
             StartGame();
         }
 
         private static void StartGame()
         {
+
             InitAddressables();
             LoadKeepNode();
         }
 
         private static void InitAddressables()
         {
-            AsyncOperationHandle<IResourceLocator> init = Addressables.InitializeAsync();
-            init.WaitForCompletion();
-            ReloadAddressables();
+            string aaBase = MainIoUtils.BundlePath.TrimEnd('/');
+            AddressablesRuntimeProperties.ClearCachedPropertyValues();
+            AddressablesRuntimeProperties.SetPropertyValue("MainApp.MainIoUtils.BundlePath", aaBase);
+            Debug.Log("InitAddressables 111, BundlePath=" + aaBase);
+
+            var init = Addressables.InitializeAsync();
+            init.Completed += op =>
+            {
+                Debug.Log($"InitAddressables Completed, status={op.Status}");
+                if (op.Status != AsyncOperationStatus.Succeeded)
+                {
+                    Debug.LogError("[InitAddressables] FAILED: " + op.OperationException);
+                }
+            };
+
+            init.WaitForCompletion();   // 先保留，等看到错误信息再改成协程
+            Debug.Log("InitAddressables 222");
         }
+
 
         public static void LoadKeepNode()
         {
-            string path = "Prefabs/Persistent/KeepNode";
-            // var prefab = Resources.Load<GameObject>(path);
-            // if (prefab == null)
-            // {
-            //     Debug.LogError($"Load failed: {path}");
-            //     return ;
-            // }
-            //
-            // var go = Instantiate(prefab);
-            // go.name = "KeepNode";
-            // if (!go.activeSelf) go.SetActive(true);
-            ReloadAddressables();
-            AsyncOperationHandle<GameObject> keepNodeHandle = Addressables.InstantiateAsync("Assets/ResBundle/Prefabs/Persistent/KeepNode.prefab");
+            AsyncOperationHandle<GameObject> keepNodeHandle =
+                Addressables.InstantiateAsync("Assets/ResBundle/Prefabs/Persistent/KeepNode.prefab");
             keepNodeHandle.WaitForCompletion();
         }
 

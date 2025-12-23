@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Core\Global.cs" />
+    <Compile Include="Assets\Scripts\Build\VersionApply.cs" />
     <Compile Include="Assets\Scripts\Core\Mgr\SceneMgr.cs" />
     <Compile Include="Assets\Scripts\Utility\EventManager.cs" />
     <Compile Include="Assets\Scripts\Environment\Tile\MonoTileInput.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Assets\Scripts\UI\Logic\StartUI\StartUI.cs" />
     <Compile Include="Assets\Scripts\Core\GameDatas.cs" />
     <Compile Include="Assets\Scripts\Environment\Tile\MonoTile.cs" />
+    <Compile Include="Assets\Scripts\Build\BuildTools.cs" />
     <Compile Include="Assets\Scripts\ConfigClass\LetterMain.cs" />
     <Compile Include="Assets\Scripts\Environment\Tile\Data\TileProperties.cs" />
     <Compile Include="Assets\Scripts\Core\Util\UIUtil.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Assets\Scripts\ConfigClass\LetterPiece.cs" />
     <Compile Include="Assets\Scripts\UI\Logic\DialogueUI\DelayedCallback.cs" />
     <Compile Include="Assets\Scripts\ConfigClass\LetterOutCome.cs" />
+    <Compile Include="Assets\Scripts\Build\BuildVersion.cs" />
     <Compile Include="Assets\Scripts\ConfigClass\Dialogue.cs" />
     <Compile Include="Assets\Scripts\UI\Logic\DialogueUI\DialogueUI.cs" />
     <Compile Include="Assets\Scripts\Environment\Tile\ScriptTiles\MonoScriptTile.cs" />
@@ -135,6 +138,7 @@
     <None Include="Assets\ThirdPart\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\AddressableAssetsData\link.xml" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
@@ -143,7 +147,6 @@
     <None Include="Assets\ThirdPart\UniTask\ProjectSettings\SceneTemplateSettings.json" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\ThirdPart\UniTask\Packages\manifest.json" />
-    <None Include="Assets\AddressableAssetsData\link.xml" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
@@ -926,6 +929,9 @@
     </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.001">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mobile.AndroidLogcat.Editor">
+      <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.Mobile.AndroidLogcat.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State.Editor">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
