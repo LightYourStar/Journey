@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppVersion: 1.0.0
   AndroidVersionCode: 10000
-  ResVersion: 2025122201
-  CodeVersion: 2025122201
+  ResVersion: 2025122502
+  CodeVersion: 2025122502
   CdnBaseUrl: http://172.18.18.28:8000/game/android/
   AddressablesRemotePath: aa/
   HotfixPath: hotfix/

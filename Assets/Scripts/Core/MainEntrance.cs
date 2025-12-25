@@ -14,6 +14,13 @@ namespace JO
 {
     public class LDMainEntrance : LDBaseMono
     {
+        [System.Serializable]
+        private class LocalVersion
+        {
+            public long resVersion;
+            public long codeVersion;
+        }
+
         /// <summary>
         /// 启动时拉取的 manifest 地址
         /// 注意：要和你 BuildTools 生成的路径一致
@@ -60,6 +67,7 @@ namespace JO
 #else
             int localAppVersionCode = manifest.minAppVersionCode;
 #endif
+
             if (localAppVersionCode < manifest.minAppVersionCode)
             {
                 Debug.LogError($"[BOOT] App version too low. local={localAppVersionCode}, min={manifest.minAppVersionCode}");
@@ -94,6 +102,9 @@ namespace JO
 
             // 4) 检查并更新 Catalog
             yield return UpdateCatalogsCoroutine();
+
+            //资源版本变更处理
+            yield return HandleResVersionChangeCoroutine(manifest);
 
             // 5) 按 manifest 里的 labels 预下载资源
             yield return PreDownloadLabelsCoroutine(manifest.preDownloadLabels);
@@ -396,6 +407,113 @@ namespace JO
                 return System.BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
             }
         }
+
+        #endregion
+
+        #region 读取加载本地version
+        private static LocalVersion LoadLocalVersion()
+        {
+            var path = Path.Combine(Application.persistentDataPath, "local_version.json");
+            Debug.Log("[BOOT] LoadLocalVersion path = " + path);
+
+            if (!File.Exists(path))
+            {
+                Debug.LogWarning("[BOOT] local_version.json not exist: ");
+                return null;
+            }
+
+            try
+            {
+                var json = File.ReadAllText(path);
+                if (string.IsNullOrEmpty(json))
+                    return null;
+
+                return JsonUtility.FromJson<LocalVersion>(json);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning("[BOOT] LoadLocalVersion failed: " + e);
+                return null;
+            }
+        }
+
+        private static void SaveLocalVersion(long resVersion, long codeVersion)
+        {
+            var path = Path.Combine(Application.persistentDataPath, "local_version.json");
+
+            try
+            {
+                var lv = new LocalVersion
+                {
+                    resVersion = resVersion,
+                    codeVersion = codeVersion
+                };
+
+                var json = JsonUtility.ToJson(lv);
+                File.WriteAllText(path, json);
+                Debug.Log($"[BOOT] SaveLocalVersion: res={resVersion}, code={codeVersion}");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning("[BOOT] SaveLocalVersion failed: " + e);
+            }
+        }
+
+        private static IEnumerator HandleResVersionChangeCoroutine(PatchManifest manifest)
+        {
+            if (manifest == null)
+                yield break;
+
+            LocalVersion local = LoadLocalVersion();
+            long newResVer  = manifest.resVersion;
+            long newCodeVer = manifest.codeVersion;
+
+            // 第一次运行：没有本地版本文件，直接记录一次，不清缓存
+            if (local == null)
+            {
+                Debug.Log("[BOOT] No local version, treat as first install.");
+                SaveLocalVersion(newResVer, newCodeVer);
+                yield break;
+            }
+
+            // 完全一致，直接用原有缓存
+            if (local.resVersion == newResVer && local.codeVersion == newCodeVer)
+            {
+                Debug.Log("[BOOT] ResVersion unchanged: " + newResVer);
+                yield break;
+            }
+
+            Debug.Log($"[BOOT] Version changed: " +
+                      $"localRes={local.resVersion}, remoteRes={newResVer}, " +
+                      $"localCode={local.codeVersion}, remoteCode={newCodeVer}");
+
+            // 策略：只清掉预下载 label 的缓存
+            if (manifest.preDownloadLabels != null && manifest.preDownloadLabels.Length > 0)
+            {
+                foreach (var label in manifest.preDownloadLabels)
+                {
+                    if (string.IsNullOrWhiteSpace(label))
+                        continue;
+
+                    Debug.Log("[BOOT] ClearDependencyCache label=" + label);
+                    var clearHandle = Addressables.ClearDependencyCacheAsync(label, true);
+
+                    while (!clearHandle.IsDone)
+                        yield return null;
+
+                    if (!clearHandle.IsValid() ||
+                        clearHandle.Status != AsyncOperationStatus.Succeeded)
+                    {
+                        Debug.LogError("[BOOT] ClearDependencyCache failed for " + label +
+                                       ": " + clearHandle.OperationException);
+                    }
+                }
+            }
+
+            // 更新本地版本记录
+            SaveLocalVersion(newResVer, newCodeVer);
+        }
+
 
         #endregion
 

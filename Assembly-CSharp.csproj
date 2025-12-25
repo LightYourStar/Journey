@@ -73,7 +73,6 @@
     <Compile Include="Assets\Scripts\ConfigClass\LevelWinCase.cs" />
     <Compile Include="Assets\ThirdPart\UniTask\Assets\Scenes\EditorTest1.cs" />
     <Compile Include="Assets\Scripts\Utility\SceneSwitching.cs" />
-    <Compile Include="Assets\Scripts\MonoKeyBinds.cs" />
     <Compile Include="Assets\Scripts\ConfigClass\EndShow.cs" />
     <Compile Include="Assets\Scripts\UI\Gen\EndUI.cs" />
     <Compile Include="Assets\Scripts\UI\Logic\LoadingUI\LoadingUI.cs" />

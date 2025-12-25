@@ -20,7 +20,8 @@ MonoBehaviour:
   - m_GUID: 109e9bdd0fcc649c5bc59085c35bdc83
     m_Address: Assets/ResBundle/Scenes
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - boot
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8efb916e76de0304bbd9b887ddec679b, type: 2}

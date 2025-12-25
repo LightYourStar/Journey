@@ -87,7 +87,7 @@
         "AutoCapture": true
     },
     "m_FilterOptions": {
-        "m_Filter": "[BOOT] ",
+        "m_Filter": "",
         "m_UseRegularExpressions": false,
         "m_MatchCase": false
     },

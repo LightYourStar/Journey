@@ -20,7 +20,8 @@ MonoBehaviour:
   - m_GUID: b4fb4b2aef86d1347bbc7ab772097260
     m_Address: Assets/ResBundle/Prefabs
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - common_ui
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8efb916e76de0304bbd9b887ddec679b, type: 2}
