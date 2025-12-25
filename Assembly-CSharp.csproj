@@ -45,116 +45,52 @@
     <Analyzer Include="C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Core\Global.cs" />
-    <Compile Include="Assets\Scripts\Core\Mgr\SceneMgr.cs" />
-    <Compile Include="Assets\Scripts\Utility\EventManager.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\MonoTileInput.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Scenes\SandboxMain.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\StartUI\StartUI.cs" />
-    <Compile Include="Assets\Scripts\Core\GameDatas.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\MonoTile.cs" />
-    <Compile Include="Assets\Scripts\Build\BuildTools.cs" />
-    <Compile Include="Assets\Scripts\ConfigClass\LetterMain.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\Data\TileProperties.cs" />
-    <Compile Include="Assets\Scripts\Core\Util\UIUtil.cs" />
-    <Compile Include="Assets\Scripts\Common\MainIoUtils.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\Data\TileType.cs" />
-    <Compile Include="Assets\Scripts\Build\PatchManifest.cs" />
-    <Compile Include="Assets\Scripts\Core\GameCtrl.cs" />
-    <Compile Include="Assets\Scripts\UI\Gen\PopTextPanel.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\TextGameUI\TextGameUI.cs" />
-    <Compile Include="Assets\Scripts\Core\EventDispatcher.cs" />
-    <Compile Include="Assets\Scripts\Core\BaseMono.cs" />
-    <Compile Include="Assets\Scripts\UI\Gen\TestUI.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\ScriptTiles\MonoScriptPropertyTile.cs" />
-    <Compile Include="Assets\Scripts\UI\Gen\StartUI.cs" />
-    <Compile Include="Assets\Scripts\Environment\MonoLevel.cs" />
-    <Compile Include="Assets\Scripts\Core\Mgr\EventMgr.cs" />
-    <Compile Include="Assets\Scripts\ConfigClass\LevelWinCase.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Scenes\EditorTest1.cs" />
-    <Compile Include="Assets\Scripts\Utility\SceneSwitching.cs" />
-    <Compile Include="Assets\Scripts\ConfigClass\EndShow.cs" />
-    <Compile Include="Assets\Scripts\UI\Gen\EndUI.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\LoadingUI\LoadingUI.cs" />
-    <Compile Include="Assets\Scripts\UI\UIManager\UIMgr.cs" />
-    <Compile Include="Assets\Scripts\Core\MainEntrance.cs" />
-    <Compile Include="Assets\Scripts\UI\Gen\TextGameUI.cs" />
+    <Compile Include="Assets\ConfigClass\EndShow.cs" />
+    <Compile Include="Assets\ConfigClass\LevelMain.cs" />
+    <Compile Include="Assets\ConfigClass\LevelWinCase.cs" />
+    <Compile Include="Assets\ConfigClass\LetterMain.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Scenes\SandboxMain.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Scenes\EditorTest1.cs" />
     <Compile Include="Assets\HybridCLRGenerate\AOTGenericReferences.cs" />
-    <Compile Include="Assets\Scripts\UI\UIManager\UIConf.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Scenes\WaitWhileTest.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\GameUI\ItemCell.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\ScriptTiles\MonoScriptTypeTile.cs" />
-    <Compile Include="Assets\Scripts\UI\Gen\GameUI.cs" />
-    <Compile Include="Assets\Scripts\UI\Gen\FullTextPanel.cs" />
-    <Compile Include="Assets\Scripts\Core\Test.cs" />
-    <Compile Include="Assets\Scripts\UI\Gen\LetterBoardUI.cs" />
-    <Compile Include="Assets\Scripts\UI\UIManager\UIViewBase.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\GameUI\GameUI.cs" />
-    <Compile Include="Assets\Scripts\UI\Gen\DialogueUI.cs" />
-    <Compile Include="Assets\Scripts\ConfigClass\LetterPiece.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\DialogueUI\DelayedCallback.cs" />
-    <Compile Include="Assets\Scripts\ConfigClass\LetterOutCome.cs" />
-    <Compile Include="Assets\Scripts\Build\BuildVersion.cs" />
-    <Compile Include="Assets\Scripts\ConfigClass\Dialogue.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\DialogueUI\DialogueUI.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\ScriptTiles\MonoScriptTile.cs" />
-    <Compile Include="Assets\Scripts\UI\UIManager\UIViewInfo.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Scenes\ExceptionExamples.cs" />
-    <Compile Include="Assets\Scripts\Utility\AutoRebuildUI.cs" />
-    <Compile Include="Assets\Scripts\ConfigClass\LetterColumn.cs" />
-    <Compile Include="Assets\Scripts\ConfigClass\LevelMain.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\MonoTileWinCheck.cs" />
-    <Compile Include="Assets\Scripts\ConfigClass\GlobalCfg.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\EndUI\EndUI.cs" />
-    <Compile Include="Assets\Scripts\UI\Gen\LoadingUI.cs" />
-    <Compile Include="Assets\Scripts\Core\Mgr\SoundMgr.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Scenes\MiddlewareSample.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\LetterBoardUI\FragmentSlot.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\LetterBoardUI\LetterBoardUI.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\LetterBoardUI\FragmentPiece.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\TileMovement.cs" />
-    <Compile Include="Assets\Scripts\Utility\Util.cs" />
-    <Compile Include="Assets\Scripts\Core\Dialogue\DialogueMgr.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\ScriptTiles\MonoScriptEqualTile.cs" />
-    <Compile Include="Assets\Scripts\Data\EventIds.cs" />
-    <Compile Include="Assets\Scripts\Core\Mgr\ResMgr.cs" />
-    <Compile Include="Assets\Scripts\Core\Mgr\AddressableResMgr.cs" />
-    <Compile Include="Assets\Scripts\Environment\Tile\Data\TileProperty.cs" />
-    <Compile Include="Assets\Scripts\UI\Logic\DialogueUI\BasicTypewriter.cs" />
-    <Compile Include="Assets\Scripts\Utility\DEBUG\UPDATE_UNITY_POS.cs" />
-    <Compile Include="Assets\Scripts\Core\Event\EventConf.cs" />
-    <Compile Include="Assets\Scripts\Core\App.cs" />
-    <None Include="Assets\ThirdPart\UniTask\Packages\packages-lock.json" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMPro.cginc" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\ThirdPart\UniTask\Assets\Plugins\UniTask\package.json" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <Compile Include="Assets\ConfigClass\LetterOutCome.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Scenes\ExceptionExamples.cs" />
+    <Compile Include="Assets\ConfigClass\LetterPiece.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Scenes\WaitWhileTest.cs" />
+    <Compile Include="Assets\ConfigClass\Dialogue.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Scenes\MiddlewareSample.cs" />
+    <Compile Include="Assets\ConfigClass\LetterColumn.cs" />
+    <Compile Include="Assets\ConfigClass\GlobalCfg.cs" />
+    <None Include="Assets\Scripts\ThirdPart\UniTask\Packages\packages-lock.json" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Scripts\ThirdPart\UniTask\Assets\Plugins\UniTask\package.json" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Library\PackageCache\com.unity.assetbundlebrowser@ad2a81ec30\package.json" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\HybridCLRGenerate\link.xml" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF.shader" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-    <None Include="Assets\ThirdPart\UniTask\ProjectSettings\SceneTemplateSettings.json" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets\ThirdPart\UniTask\Packages\manifest.json" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Scripts\ThirdPart\UniTask\ProjectSettings\SceneTemplateSettings.json" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Scripts\ThirdPart\UniTask\Packages\manifest.json" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Library\PackageCache\com.code-philosophy.hybridclr@4df417e56a\package.json" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
-    <None Include="Assets\ThirdPart\UniTask\ProjectSettings\ProjectVersion.txt" />
-    <None Include="Assets\ThirdPart\UniTask\Assets\StreamingAssets\test.txt" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Sprites\EmojiOne.json" />
-    <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Scripts\ThirdPart\UniTask\ProjectSettings\ProjectVersion.txt" />
+    <None Include="Assets\Scripts\ThirdPart\UniTask\Assets\StreamingAssets\test.txt" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Sprites\EmojiOne.json" />
+    <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -974,33 +910,41 @@
       <Project>{fc64de43-ad32-e4f0-ae18-460faf84b787}</Project>
       <Name>HybridCLR.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="UniTask.DOTween.csproj">
-      <Project>{53a93912-3d0e-4091-3f95-921c22e303f8}</Project>
-      <Name>UniTask.DOTween</Name>
-    </ProjectReference>
     <ProjectReference Include="HybridCLR.Editor.csproj">
       <Project>{fbe00b60-0a01-fe5b-c7b8-87ccb9adbdc5}</Project>
       <Name>HybridCLR.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="UniTask.csproj">
-      <Project>{0610ba4a-a1b2-2451-024d-a3ae940c18c9}</Project>
-      <Name>UniTask</Name>
+    <ProjectReference Include="UniTask.DOTween.csproj">
+      <Project>{53a93912-3d0e-4091-3f95-921c22e303f8}</Project>
+      <Name>UniTask.DOTween</Name>
     </ProjectReference>
-    <ProjectReference Include="UniTask.Linq.csproj">
-      <Project>{382a295e-81c8-3a70-02d5-237dadc2966f}</Project>
-      <Name>UniTask.Linq</Name>
+    <ProjectReference Include="AOT.csproj">
+      <Project>{c57aee67-bfc3-4e36-ff17-4bc98a2f1aa2}</Project>
+      <Name>AOT</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.Addressables.csproj">
+      <Project>{ad8e118f-07bb-a5c4-3bd4-219c7aa5d8b0}</Project>
+      <Name>UniTask.Addressables</Name>
     </ProjectReference>
     <ProjectReference Include="TempAsm.csproj">
       <Project>{4249c509-3b3e-7e9c-4646-200dbaa9ad55}</Project>
       <Name>TempAsm</Name>
     </ProjectReference>
+    <ProjectReference Include="Hotfix.csproj">
+      <Project>{6e82b942-c7b9-644e-258f-a316e956d893}</Project>
+      <Name>Hotfix</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.Linq.csproj">
+      <Project>{382a295e-81c8-3a70-02d5-237dadc2966f}</Project>
+      <Name>UniTask.Linq</Name>
+    </ProjectReference>
     <ProjectReference Include="UniTask.TextMeshPro.csproj">
       <Project>{a29c5060-6f9c-803a-d653-90e5cf80cc9a}</Project>
       <Name>UniTask.TextMeshPro</Name>
     </ProjectReference>
-    <ProjectReference Include="UniTask.Addressables.csproj">
-      <Project>{ad8e118f-07bb-a5c4-3bd4-219c7aa5d8b0}</Project>
-      <Name>UniTask.Addressables</Name>
+    <ProjectReference Include="UniTask.csproj">
+      <Project>{0610ba4a-a1b2-2451-024d-a3ae940c18c9}</Project>
+      <Name>UniTask</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.AssetBundleBrowser.Editor.csproj">
       <Project>{6dd874d5-04ff-1f81-8bfb-94d5a2c66256}</Project>

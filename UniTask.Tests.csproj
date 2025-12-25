@@ -45,18 +45,18 @@
     <Analyzer Include="C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\RunTest.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\Preserve.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\Shims.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\WhenAnyTest.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\AsyncOperationTest.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\CachelikeTest.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\GenericsWhenAllAny.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\DelayTest.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\PlayerLoopTimerTest.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\CoroutineToUniTaskTest.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Tests\AsyncTest.cs" />
-    <None Include="Assets\ThirdPart\UniTask\Assets\Tests\UniTask.Tests.asmdef" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\AsyncOperationTest.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\Preserve.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\WhenAnyTest.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\RunTest.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\GenericsWhenAllAny.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\PlayerLoopTimerTest.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\CachelikeTest.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\Shims.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\AsyncTest.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\DelayTest.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\CoroutineToUniTaskTest.cs" />
+    <None Include="Assets\Scripts\ThirdPart\UniTask\Assets\Tests\UniTask.Tests.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

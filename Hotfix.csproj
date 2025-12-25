@@ -12,11 +12,11 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4249c509-3b3e-7e9c-4646-200dbaa9ad55}</ProjectGuid>
+    <ProjectGuid>{6e82b942-c7b9-644e-258f-a316e956d893}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>TempAsm</AssemblyName>
+    <AssemblyName>Hotfix</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -25,7 +25,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Temp\Bin\Debug\TempAsm\</OutputPath>
+    <OutputPath>Temp\Bin\Debug\Hotfix\</OutputPath>
     <DefineConstants>UNITY_2022_3_62;UNITY_2022_3;UNITY_2022;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_2022_1_OR_NEWER;UNITY_2022_2_OR_NEWER;UNITY_2022_3_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_GENERATE_NATIVE_PLUGINS_FOR_ASSEMBLIES_API;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_RUNTIME_PERMISSIONS;ENABLE_ENGINE_CODE_STRIPPING;ENABLE_ONSCREEN_KEYBOARD;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;ENABLE_NAVIGATION_PACKAGE_DEBUG_VISUALIZATION;ENABLE_NAVIGATION_HEIGHTMESH_RUNTIME_SUPPORT;ENABLE_NAVIGATION_UI_REQUIRES_PACKAGE;PLATFORM_ANDROID;TEXTCORE_1_0_OR_NEWER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;UNITY_CAN_SHOW_SPLASH_SCREEN;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;ENABLE_ETC_COMPRESSION;PLATFORM_EXTENDS_VULKAN_DEVICE;PLATFORM_HAS_MULTIPLE_SWAPCHAINS;UNITY_ANDROID_SUPPORTS_SHADOWFILES;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;NET_STANDARD_2_1;NETSTANDARD;NETSTANDARD2_1;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -45,8 +45,36 @@
     <Analyzer Include="C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\TempAsm\FooMonoBehaviour.cs" />
-    <None Include="Assets\Scripts\ThirdPart\UniTask\Assets\TempAsm\TempAsm.asmdef" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\EndUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\DialogueUI\DialogueUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LetterBoardUI\FragmentPiece.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\Editor\UITool.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\LoadingUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\FullTextPanel.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\TextGameUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LoadingUI\LoadingUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LetterBoardUI\LetterBoardUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\GameUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\UIConf.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LetterBoardUI\FragmentSlot.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\DialogueUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Data\EventIds.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\LetterBoardUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\UIMgr.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\DialogueUI\DelayedCallback.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\GameUI\GameUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\UIViewInfo.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\TestUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\TextGameUI\TextGameUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\StartUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\Editor\UIViewInfoEditor.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\DialogueUI\BasicTypewriter.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\PopTextPanel.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\GameUI\ItemCell.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\EndUI\EndUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\UIViewBase.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\StartUI\StartUI.cs" />
+    <None Include="Assets\Scripts\Runtime\Hotfix\Hotfix.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -721,9 +749,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="UniTask.csproj">
-      <Project>{0610ba4a-a1b2-2451-024d-a3ae940c18c9}</Project>
-      <Name>UniTask</Name>
+    <ProjectReference Include="AOT.csproj">
+      <Project>{c57aee67-bfc3-4e36-ff17-4bc98a2f1aa2}</Project>
+      <Name>AOT</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -487,6 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71df89d4d28af4742bb6eb5ac4aee27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ManifestUrl: http://172.18.18.28:8000/game/android/manifest.json
 --- !u!1 &1690717575
 GameObject:
   m_ObjectHideFlags: 0

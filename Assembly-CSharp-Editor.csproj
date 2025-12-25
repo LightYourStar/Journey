@@ -47,11 +47,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Editor\Excel2ScriptableObject\Editor\ErrorCollector.cs" />
     <Compile Include="Assets\Scripts\Editor\Excel2ScriptableObject\Editor\ExcelToScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\UI\UIManager\Editor\UITool.cs" />
-    <Compile Include="Assets\Scripts\UI\UIManager\Editor\UIViewInfoEditor.cs" />
+    <Compile Include="Assets\Scripts\Editor\Build\BuildVersion.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Editor\PackageExporter.cs" />
+    <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Editor\EditorRunnerChecker.cs" />
+    <Compile Include="Assets\Scripts\Editor\Build\BuildTools.cs" />
     <Compile Include="Assets\Scripts\Editor\Excel2ScriptableObject\Editor\ExcelComparer.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Editor\PackageExporter.cs" />
-    <Compile Include="Assets\ThirdPart\UniTask\Assets\Editor\EditorRunnerChecker.cs" />
     <Compile Include="Assets\Scripts\Editor\GameEditorTools.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -945,33 +945,41 @@
       <Project>{fc64de43-ad32-e4f0-ae18-460faf84b787}</Project>
       <Name>HybridCLR.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="UniTask.DOTween.csproj">
-      <Project>{53a93912-3d0e-4091-3f95-921c22e303f8}</Project>
-      <Name>UniTask.DOTween</Name>
-    </ProjectReference>
     <ProjectReference Include="HybridCLR.Editor.csproj">
       <Project>{fbe00b60-0a01-fe5b-c7b8-87ccb9adbdc5}</Project>
       <Name>HybridCLR.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="UniTask.csproj">
-      <Project>{0610ba4a-a1b2-2451-024d-a3ae940c18c9}</Project>
-      <Name>UniTask</Name>
+    <ProjectReference Include="UniTask.DOTween.csproj">
+      <Project>{53a93912-3d0e-4091-3f95-921c22e303f8}</Project>
+      <Name>UniTask.DOTween</Name>
     </ProjectReference>
-    <ProjectReference Include="UniTask.Linq.csproj">
-      <Project>{382a295e-81c8-3a70-02d5-237dadc2966f}</Project>
-      <Name>UniTask.Linq</Name>
+    <ProjectReference Include="AOT.csproj">
+      <Project>{c57aee67-bfc3-4e36-ff17-4bc98a2f1aa2}</Project>
+      <Name>AOT</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.Addressables.csproj">
+      <Project>{ad8e118f-07bb-a5c4-3bd4-219c7aa5d8b0}</Project>
+      <Name>UniTask.Addressables</Name>
     </ProjectReference>
     <ProjectReference Include="TempAsm.csproj">
       <Project>{4249c509-3b3e-7e9c-4646-200dbaa9ad55}</Project>
       <Name>TempAsm</Name>
     </ProjectReference>
+    <ProjectReference Include="Hotfix.csproj">
+      <Project>{6e82b942-c7b9-644e-258f-a316e956d893}</Project>
+      <Name>Hotfix</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.Linq.csproj">
+      <Project>{382a295e-81c8-3a70-02d5-237dadc2966f}</Project>
+      <Name>UniTask.Linq</Name>
+    </ProjectReference>
     <ProjectReference Include="UniTask.TextMeshPro.csproj">
       <Project>{a29c5060-6f9c-803a-d653-90e5cf80cc9a}</Project>
       <Name>UniTask.TextMeshPro</Name>
     </ProjectReference>
-    <ProjectReference Include="UniTask.Addressables.csproj">
-      <Project>{ad8e118f-07bb-a5c4-3bd4-219c7aa5d8b0}</Project>
-      <Name>UniTask.Addressables</Name>
+    <ProjectReference Include="UniTask.csproj">
+      <Project>{0610ba4a-a1b2-2451-024d-a3ae940c18c9}</Project>
+      <Name>UniTask</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.AssetBundleBrowser.Editor.csproj">
       <Project>{6dd874d5-04ff-1f81-8bfb-94d5a2c66256}</Project>
