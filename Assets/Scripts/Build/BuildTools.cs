@@ -5,9 +5,8 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEditor;
-using UnityEditor.Build.Reporting;
 using UnityEngine;
-
+using JO.Patch;
 public static class BuildTools
 {
     private const string BuildVersionAssetPath = "Assets/Build/BuildVersion.asset";
@@ -85,7 +84,7 @@ public static class BuildTools
         string hotfixDir = Path.Combine(cdnRootLocal, v.HotfixPath.TrimEnd('/', '\\'));
         Directory.CreateDirectory(hotfixDir);
 
-        var files = new List<ManifestFile>();
+        var files = new List<PatchManifestFile>();
         foreach (var rel in v.HotfixFiles)
         {
             string localPath = Path.Combine(hotfixDir, rel.Replace('/', Path.DirectorySeparatorChar));
@@ -95,7 +94,7 @@ public static class BuildTools
                 continue;
             }
 
-            files.Add(new ManifestFile
+            files.Add(new PatchManifestFile
             {
                 name = $"{v.HotfixPath}{rel}".Replace("\\", "/"),
                 url = $"{v.HotfixPath}{rel}".Replace("\\", "/"),
@@ -105,7 +104,7 @@ public static class BuildTools
             });
         }
 
-        var manifest = new Manifest
+        var manifest = new PatchManifest
         {
             minAppVersionCode = v.AndroidVersionCode,   // 你也可以改成更低，做到“向后兼容不强更”
             resVersion = v.ResVersion,
@@ -119,7 +118,8 @@ public static class BuildTools
 
         string json = JsonUtility.ToJson(manifest, true);
         string manifestPath = Path.Combine(cdnRootLocal, "manifest.json");
-        File.WriteAllText(manifestPath, json, Encoding.UTF8);
+        var utf8NoBom = new UTF8Encoding(false);
+        File.WriteAllText(manifestPath, json, utf8NoBom);
 
         Debug.Log($"Generated manifest.json => {manifestPath}");
         EditorUtility.RevealInFinder(manifestPath);
@@ -133,31 +133,6 @@ public static class BuildTools
         var sb = new StringBuilder(hash.Length * 2);
         for (int i = 0; i < hash.Length; i++) sb.Append(hash[i].ToString("x2"));
         return sb.ToString();
-    }
-
-    [Serializable]
-    private class Manifest
-    {
-        public int minAppVersionCode;
-        public long resVersion;
-        public long codeVersion;
-
-        public string cdnBaseUrl;
-        public string addressablesRemotePath;
-        public string hotfixPath;
-
-        public string[] preDownloadLabels;
-        public ManifestFile[] files;
-    }
-
-    [Serializable]
-    private class ManifestFile
-    {
-        public string name;
-        public string url;
-        public long size;
-        public string sha256;
-        public string type;
     }
 }
 #endif

@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Core\Global.cs" />
-    <Compile Include="Assets\Scripts\Build\VersionApply.cs" />
     <Compile Include="Assets\Scripts\Core\Mgr\SceneMgr.cs" />
     <Compile Include="Assets\Scripts\Utility\EventManager.cs" />
     <Compile Include="Assets\Scripts\Environment\Tile\MonoTileInput.cs" />
@@ -60,6 +59,7 @@
     <Compile Include="Assets\Scripts\Core\Util\UIUtil.cs" />
     <Compile Include="Assets\Scripts\Common\MainIoUtils.cs" />
     <Compile Include="Assets\Scripts\Environment\Tile\Data\TileType.cs" />
+    <Compile Include="Assets\Scripts\Build\PatchManifest.cs" />
     <Compile Include="Assets\Scripts\Core\GameCtrl.cs" />
     <Compile Include="Assets\Scripts\UI\Gen\PopTextPanel.cs" />
     <Compile Include="Assets\Scripts\UI\Logic\TextGameUI\TextGameUI.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\UI\UIManager\UIMgr.cs" />
     <Compile Include="Assets\Scripts\Core\MainEntrance.cs" />
     <Compile Include="Assets\Scripts\UI\Gen\TextGameUI.cs" />
+    <Compile Include="Assets\HybridCLRGenerate\AOTGenericReferences.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager\UIConf.cs" />
     <Compile Include="Assets\ThirdPart\UniTask\Assets\Scenes\WaitWhileTest.cs" />
     <Compile Include="Assets\Scripts\UI\Logic\GameUI\ItemCell.cs" />
@@ -138,7 +139,6 @@
     <None Include="Assets\ThirdPart\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF.shader" />
-    <None Include="Assets\AddressableAssetsData\link.xml" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\ThirdPart\TextMesh Pro\Shaders\TMPro_Properties.cginc" />

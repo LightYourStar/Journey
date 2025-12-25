@@ -6,12 +6,30 @@
         "processId": 0,
         "exited": false
     },
-    "m_SelectedPriority": 1,
+    "m_SelectedPriority": 2,
     "m_KnownProcessesForSerialization": [
         {
             "deviceId": "emulator-5554",
             "name": "app.lawnchair",
             "processId": 1602,
+            "exited": true
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.and.monstergo.online",
+            "processId": 5788,
+            "exited": true
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.DefaultCompany.Journey",
+            "processId": 6312,
+            "exited": true
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.DefaultCompany.Journey",
+            "processId": 6687,
             "exited": false
         }
     ],
@@ -49,7 +67,7 @@
     },
     "m_ExtraWindowState": {
         "Type": 0,
-        "Height": 0.0
+        "Height": 255.0
     },
     "m_MemoryViewerState": {
         "MemoryWindowWidth": 170.0,
@@ -69,7 +87,7 @@
         "AutoCapture": true
     },
     "m_FilterOptions": {
-        "m_Filter": "[InitAddressables] ",
+        "m_Filter": "[BOOT] ",
         "m_UseRegularExpressions": false,
         "m_MatchCase": false
     },

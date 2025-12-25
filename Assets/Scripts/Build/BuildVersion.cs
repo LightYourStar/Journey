@@ -13,7 +13,6 @@ public class BuildVersion : ScriptableObject
 
     [Header("Remote")]
     public string CdnBaseUrl = "http://172.18.18.28:8000/game/android/"; // 先用本地模拟CDN
-    // public string CdnBaseUrl = "http://127.0.0.1:8000/game/android/"; // 先用本地模拟CDN
     public string AddressablesRemotePath = "aa/";
     public string HotfixPath = "hotfix/";
 

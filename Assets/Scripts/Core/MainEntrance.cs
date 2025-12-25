@@ -1,73 +1,406 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using JO.Patch;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.Initialization;
 using UnityEngine.AddressableAssets.ResourceLocators;
+using UnityEngine.Networking;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement;
 
 namespace JO
 {
     public class LDMainEntrance : LDBaseMono
     {
+        /// <summary>
+        /// 启动时拉取的 manifest 地址
+        /// 注意：要和你 BuildTools 生成的路径一致
+        /// 目前是：BuildCDN/game/android/manifest.json
+        /// 对应 HTTP： http://172.18.18.28:8000/game/android/manifest.json
+        /// </summary>
+        [SerializeField]
+        private string m_ManifestUrl = "http://172.18.18.28:8000/game/android/manifest.json";
+
         private void Awake()
         {
+            InitFocusInfo();
             AdapterCanvas();
-            StartGame();
-        }
-
-        private static void StartGame()
-        {
-
-            InitAddressables();
-            LoadKeepNode();
-        }
-
-        private static void InitAddressables()
-        {
-            string aaBase = MainIoUtils.BundlePath.TrimEnd('/');
-            AddressablesRuntimeProperties.ClearCachedPropertyValues();
-            AddressablesRuntimeProperties.SetPropertyValue("MainApp.MainIoUtils.BundlePath", aaBase);
-            Debug.Log("InitAddressables 111, BundlePath=" + aaBase);
-
-            var init = Addressables.InitializeAsync();
-            init.Completed += op =>
-            {
-                Debug.Log($"InitAddressables Completed, status={op.Status}");
-                if (op.Status != AsyncOperationStatus.Succeeded)
-                {
-                    Debug.LogError("[InitAddressables] FAILED: " + op.OperationException);
-                }
-            };
-
-            init.WaitForCompletion();   // 先保留，等看到错误信息再改成协程
-            Debug.Log("InitAddressables 222");
-        }
-
-
-        public static void LoadKeepNode()
-        {
-            AsyncOperationHandle<GameObject> keepNodeHandle =
-                Addressables.InstantiateAsync("Assets/ResBundle/Prefabs/Persistent/KeepNode.prefab");
-            keepNodeHandle.WaitForCompletion();
-        }
-
-        private static void ReloadAddressables()
-        {
-            string catalogFile = MainIoUtils.BundlePath + "/catalog.json";
-            Debug.Log(" InitAddressables 111 " + catalogFile);
-            if (!File.Exists(catalogFile))
-            {
-                return;
-            }
-            Debug.Log(" InitAddressables 2222 " + catalogFile);
-            Addressables.ClearResourceLocators();
-            AsyncOperationHandle<IResourceLocator> loadLog = Addressables.LoadContentCatalogAsync(catalogFile);
-            loadLog.WaitForCompletion();
+            StartCoroutine(BootRoutine());
         }
 
         /// <summary>
-        /// 初始化焦点信息
+        /// 启动总流程：
+        /// 1. 拉 manifest
+        /// 2. 版本检查（预留强更）
+        /// 3. 设置 Addressables 远端路径
+        /// 4. 初始化 Addressables
+        /// 5. Catalog 更新 + 预下载
+        /// 6. 下载热更 DLL（预留 HybridCLR 入口）
+        /// 7. 创建常驻节点，进入游戏
         /// </summary>
+        private IEnumerator BootRoutine()
+        {
+            Debug.Log("[BOOT] BootRoutine start");
+
+            // 0) 拉 manifest
+            PatchManifest manifest = null;
+            yield return StartCoroutine(FetchManifestCoroutine(m_ManifestUrl, m => manifest = m));
+            if (manifest == null)
+            {
+                Debug.LogError("[BOOT] FetchManifest failed, manifest == null");
+                yield break;
+            }
+
+            // 1) App 版本检查（现在只是骨架，真正的 versionCode 你之后再接）
+#if UNITY_ANDROID && !UNITY_EDITOR
+            // TODO: 用 AndroidJavaObject 读取真正的 versionCode
+            int localAppVersionCode = manifest.minAppVersionCode;
+#else
+            int localAppVersionCode = manifest.minAppVersionCode;
+#endif
+            if (localAppVersionCode < manifest.minAppVersionCode)
+            {
+                Debug.LogError($"[BOOT] App version too low. local={localAppVersionCode}, min={manifest.minAppVersionCode}");
+                // TODO: 这里弹强更 UI，引导玩家去更新，然后 yield break
+                // 暂时先直接进游戏的话，可以注释掉这段判断
+                // yield break;
+            }
+
+            // 2) 根据 manifest 设置 BundlePath / Remote.LoadPath
+            string aaBase = manifest.cdnBaseUrl.TrimEnd('/') + "/" +
+                            manifest.addressablesRemotePath.Trim('/');
+
+            // 写回你自己的工具类，方便其他系统用
+            MainIoUtils.BundlePath = aaBase;
+
+            // 给 Addressables 的 Remote.LoadPath 里的 {MainApp.MainIoUtils.BundlePath} 赋值
+            AddressablesRuntimeProperties.ClearCachedPropertyValues();
+            AddressablesRuntimeProperties.SetPropertyValue(
+                "MainApp.MainIoUtils.BundlePath",
+                aaBase
+            );
+
+            Debug.Log("[BOOT] Addressables Base = " + aaBase);
+
+            ResourceManager.ExceptionHandler = (handle, ex) =>
+            {
+                Debug.LogError($"[Addressables] Exception. Op={handle.DebugName}, ex={ex}");
+            };
+
+            // 3) 初始化 Addressables
+            yield return InitAddressablesCoroutine();
+
+            // 4) 检查并更新 Catalog
+            yield return UpdateCatalogsCoroutine();
+
+            // 5) 按 manifest 里的 labels 预下载资源
+            yield return PreDownloadLabelsCoroutine(manifest.preDownloadLabels);
+
+            // 6) 下载热更 DLL 等（如果 manifest.files 里有 type = "hotfix" 的条目）
+            yield return DownloadHotfixFilesCoroutine(manifest);
+
+            // 7) 创建常驻节点
+            yield return LoadKeepNodeCoroutine();
+
+            Debug.Log("[BOOT] BootRoutine done, ready to enter game.");
+            // TODO: 在这里进入登陆/主界面，例如：
+            // SceneManager.LoadScene("MainScene");
+        }
+
+        #region Manifest
+
+        private IEnumerator FetchManifestCoroutine(string url, System.Action<PatchManifest> onDone)
+        {
+            Debug.Log("[BOOT] FetchManifest " + url);
+
+            using (var req = UnityWebRequest.Get(url))
+            {
+                yield return req.SendWebRequest();
+
+                if (req.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.LogError("[BOOT] FetchManifest FAILED: " + req.error);
+                    onDone?.Invoke(null);
+                    yield break;
+                }
+
+                var json = req.downloadHandler.text;
+                PatchManifest manifest = null;
+
+                try
+                {
+                    Debug.Log("[BOOT] json:" + json);
+                    if (!string.IsNullOrEmpty(json) && json[0] == '\uFEFF')//去掉Utf8-bom
+                    {
+                        json = json.Substring(1);
+                    }
+
+                    manifest = JsonUtility.FromJson<PatchManifest>(json);
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("[BOOT] Parse manifest FAILED: " + e);
+                }
+
+                onDone?.Invoke(manifest);
+            }
+        }
+
+        #endregion
+
+        #region Addressables 初始化/更新/预下载
+
+        private static IEnumerator InitAddressablesCoroutine()
+        {
+            Debug.Log("[BOOT] InitAddressables...");
+            AsyncOperationHandle<IResourceLocator> handle = Addressables.InitializeAsync();
+
+            while (!handle.IsDone)
+            {
+                yield return null;
+            }
+
+            // ★ 先判断句柄是否有效
+            if (!handle.IsValid())
+            {
+                Debug.LogError("[BOOT] InitAddressables FAILED: handle is invalid.");
+                yield break;
+            }
+
+            if (handle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError("[BOOT] InitAddressables FAILED: " + handle.OperationException);
+                yield break;
+            }
+
+            Debug.Log("[BOOT] InitAddressables Succeeded");
+        }
+
+
+        private static IEnumerator UpdateCatalogsCoroutine()
+        {
+            Debug.Log("[BOOT] CheckForCatalogUpdates...");
+            var checkHandle = Addressables.CheckForCatalogUpdates(false);
+            yield return checkHandle;
+
+            var catalogs = checkHandle.Result;
+            Addressables.Release(checkHandle);
+
+            if (catalogs == null || catalogs.Count == 0)
+            {
+                Debug.Log("[BOOT] Catalog already up to date.");
+                yield break;
+            }
+
+            Debug.Log($"[BOOT] UpdateCatalogs {catalogs.Count} catalogs...");
+            var updateHandle = Addressables.UpdateCatalogs(catalogs, false);
+
+            while (!updateHandle.IsDone)
+            {
+                yield return null;
+            }
+
+            if (updateHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError("[BOOT] UpdateCatalogs FAILED: " + updateHandle.OperationException);
+            }
+            else
+            {
+                Debug.Log("[BOOT] UpdateCatalogs Succeeded");
+            }
+
+            Addressables.Release(updateHandle);
+        }
+
+        private static IEnumerator PreDownloadLabelsCoroutine(string[] labels)
+        {
+            if (labels == null || labels.Length == 0)
+            {
+                Debug.Log("[BOOT] No preDownloadLabels, skip.");
+                yield break;
+            }
+
+            var ops = new List<AsyncOperationHandle>();
+
+            foreach (var label in labels)
+            {
+                if (string.IsNullOrWhiteSpace(label))
+                    continue;
+
+                var op = Addressables.DownloadDependenciesAsync(
+                    label,
+                    Addressables.MergeMode.Union,
+                    false
+                );
+                ops.Add(op);
+            }
+
+            if (ops.Count == 0)
+                yield break;
+
+            bool allDone = false;
+            while (!allDone)
+            {
+                allDone = true;
+                float avg = 0f;
+                foreach (var op in ops)
+                {
+                    if (!op.IsDone) allDone = false;
+                    avg += op.PercentComplete;
+                }
+
+                avg /= ops.Count;
+                // 需要的话可以加个进度条
+                // Debug.Log($"[BOOT] PreDownload progress: {avg:P0}");
+                yield return null;
+            }
+
+            foreach (var op in ops)
+            {
+                if (!op.IsValid())
+                {
+                    Debug.LogError("[BOOT] DownloadDependencies got invalid handle.");
+                    continue;
+                }
+
+                if (op.Status != AsyncOperationStatus.Succeeded)
+                {
+                    Debug.LogError("[BOOT] DownloadDependencies FAILED: " + op.OperationException);
+                }
+
+                Addressables.Release(op);
+            }
+
+            Debug.Log("[BOOT] PreDownloadLabels done.");
+        }
+
+        private static IEnumerator LoadKeepNodeCoroutine()
+        {
+            const string key = "Assets/ResBundle/Prefabs/Persistent/KeepNode.prefab";
+            Debug.Log("[BOOT] LoadKeepNode: " + key);
+
+            AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync(key);
+
+            while (!handle.IsDone)
+            {
+                yield return null;
+            }
+
+            if (handle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError("[BOOT] LoadKeepNode FAILED: " + handle.OperationException);
+                yield break;
+            }
+
+            var go = handle.Result;
+            if (go != null)
+            {
+                go.name = "KeepNode";
+                if (!go.activeSelf) go.SetActive(true);
+                Debug.Log("[BOOT] KeepNode instantiated.");
+            }
+            else
+            {
+                Debug.LogError("[BOOT] LoadKeepNode: result is null");
+            }
+        }
+
+        #endregion
+
+        #region 热更 DLL 下载（SHA256 校验骨架）
+
+        private static IEnumerator DownloadHotfixFilesCoroutine(PatchManifest manifest)
+        {
+            if (manifest == null || manifest.files == null || manifest.files.Length == 0)
+            {
+                Debug.Log("[HOTFIX] No files in manifest, skip.");
+                yield break;
+            }
+
+            string baseUrl = manifest.cdnBaseUrl.TrimEnd('/');
+            string localRoot = Path.Combine(Application.persistentDataPath, "hotfix");
+
+            if (!Directory.Exists(localRoot))
+                Directory.CreateDirectory(localRoot);
+
+            foreach (var file in manifest.files)
+            {
+                if (file == null)
+                    continue;
+
+                if (!string.Equals(file.type, "hotfix", System.StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                string url = baseUrl + "/" + file.url.TrimStart('/');
+                string localPath = Path.Combine(localRoot, Path.GetFileName(file.name));
+
+                // 已有并且校验通过就复用
+                if (File.Exists(localPath))
+                {
+                    string localHash = ComputeSha256(localPath);
+                    if (!string.IsNullOrEmpty(file.sha256) &&
+                        string.Equals(localHash, file.sha256, System.StringComparison.OrdinalIgnoreCase))
+                    {
+                        Debug.Log($"[HOTFIX] Use cached file: {localPath}");
+                        continue;
+                    }
+                }
+
+                Debug.Log($"[HOTFIX] Download {url}");
+                using (var req = UnityWebRequest.Get(url))
+                {
+                    yield return req.SendWebRequest();
+
+                    if (req.result != UnityWebRequest.Result.Success)
+                    {
+                        Debug.LogError("[HOTFIX] Download FAILED: " + req.error);
+                        yield break;    // 策略：热更失败就不继续，你之后可以改成重试或跳过
+                    }
+
+                    try
+                    {
+                        File.WriteAllBytes(localPath, req.downloadHandler.data);
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError("[HOTFIX] Save file FAILED: " + e);
+                        yield break;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(file.sha256))
+                {
+                    string hash = ComputeSha256(localPath);
+                    if (!string.Equals(hash, file.sha256, System.StringComparison.OrdinalIgnoreCase))
+                    {
+                        Debug.LogError($"[HOTFIX] Sha256 mismatch for {localPath}");
+                        yield break;
+                    }
+                }
+
+                // TODO：这里接入 HybridCLR 加载该 DLL
+                // HybridCLRUtil.LoadHotUpdateAssembly(localPath);
+            }
+
+            Debug.Log("[HOTFIX] All hotfix files ready.");
+        }
+
+        private static string ComputeSha256(string path)
+        {
+            using (var stream = File.OpenRead(path))
+            using (var sha = System.Security.Cryptography.SHA256.Create())
+            {
+                var hash = sha.ComputeHash(stream);
+                return System.BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+            }
+        }
+
+        #endregion
+
+        #region 其他初始化
+
         private void InitFocusInfo()
         {
 #if UNITY_EDITOR
@@ -77,12 +410,16 @@ namespace JO
 #endif
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
         }
+
         /// <summary>
-        /// 进行ui适配
+        /// 进行 UI 适配
         /// </summary>
         private void AdapterCanvas()
         {
-            // LDUIAdapter.AdapterMainScene(gameObject.transform);
+            // 根据你自己的项目需要来适配
+            // LDUIAdapter.AdapterMainScene(transform);
         }
+
+        #endregion
     }
 }
