@@ -49,9 +49,11 @@
     <Compile Include="Assets\Scripts\Editor\Excel2ScriptableObject\Editor\ExcelToScriptableObject.cs" />
     <Compile Include="Assets\Scripts\Editor\Build\BuildVersion.cs" />
     <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Editor\PackageExporter.cs" />
+    <Compile Include="Assets\Scripts\Editor\UITool.cs" />
     <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Editor\EditorRunnerChecker.cs" />
     <Compile Include="Assets\Scripts\Editor\Build\BuildTools.cs" />
     <Compile Include="Assets\Scripts\Editor\Excel2ScriptableObject\Editor\ExcelComparer.cs" />
+    <Compile Include="Assets\Scripts\Editor\UIViewInfoEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\GameEditorTools.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

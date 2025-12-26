@@ -45,21 +45,12 @@
     <Analyzer Include="C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ConfigClass\EndShow.cs" />
-    <Compile Include="Assets\ConfigClass\LevelMain.cs" />
-    <Compile Include="Assets\ConfigClass\LevelWinCase.cs" />
-    <Compile Include="Assets\ConfigClass\LetterMain.cs" />
     <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Scenes\SandboxMain.cs" />
     <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Scenes\EditorTest1.cs" />
     <Compile Include="Assets\HybridCLRGenerate\AOTGenericReferences.cs" />
-    <Compile Include="Assets\ConfigClass\LetterOutCome.cs" />
     <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Scenes\ExceptionExamples.cs" />
-    <Compile Include="Assets\ConfigClass\LetterPiece.cs" />
     <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Scenes\WaitWhileTest.cs" />
-    <Compile Include="Assets\ConfigClass\Dialogue.cs" />
     <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Scenes\MiddlewareSample.cs" />
-    <Compile Include="Assets\ConfigClass\LetterColumn.cs" />
-    <Compile Include="Assets\ConfigClass\GlobalCfg.cs" />
     <None Include="Assets\Scripts\ThirdPart\UniTask\Packages\packages-lock.json" />
     <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

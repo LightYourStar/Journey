@@ -1,89 +1,106 @@
 ﻿using System.Collections.Generic;
-using JO;
-using UnityEngine;
 
-public class SoundMgr
+public class EventMgr
 {
+    public delegate void EventListener(params object[] args);
 
-    private static SoundMgr _instance;
-    public static SoundMgr Instance
+    private static EventMgr _instance;
+    public static EventMgr Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = new SoundMgr();
+                _instance = new EventMgr();
             }
             return _instance;
         }
     }
 
-    public SoundMgr()
+    public EventMgr()
     {
 
     }
 
-    private string bgmName = string.Empty;
+    private readonly object syncRoot = new object();
 
+    private List<int> eventIdList = new List<int>();
 
-    private AudioSource bgmAudioSource = null;
+    private Dictionary<int, List<EventListener>> eventDic = new Dictionary<int, List<EventListener>>();
 
-    private AudioSource BgmAudioSource
+    public static void AddEvent(int eventId, EventListener listener)
     {
-        get
-        {
-            if (bgmAudioSource == null)
-            {
-                GameObject bgmObj = new GameObject("BgmAudioSource");
-                bgmAudioSource = bgmObj.AddComponent<AudioSource>();
-                bgmAudioSource.loop = true;
-                Object.DontDestroyOnLoad(bgmObj);
-            }
-            return bgmAudioSource;
-        }
-    }
-
-    private AudioSource sound = null;
-
-    private AudioSource Sound
-    {
-        get
-        {
-            if (sound == null)
-            {
-                GameObject soundObj = new GameObject("SoundAudioSource");
-                sound = soundObj.AddComponent<AudioSource>();
-                Object.DontDestroyOnLoad(soundObj);
-            }
-            return sound;
-        }
-    }
-
-    public static void PlayBgm(string name)
-    {
-        Instance._PlayBgm(name);
-    }
-
-    private void _PlayBgm(string name)
-    {
-        if (bgmName == name)
-        {
+        if (listener == null)
             return;
+
+        lock (Instance.syncRoot)
+        {
+            if (!Instance.eventDic.TryGetValue(eventId, out var list))
+            {
+                list = new List<EventListener>();
+                Instance.eventDic[eventId] = list;
+                Instance.eventIdList.Add(eventId);
+            }
+
+            if (!list.Contains(listener))
+            {
+                list.Add(listener);
+            }
         }
-        bgmName = name;
-        AudioClip clip = Global.gApp.gResMgr.LoadAssets<AudioClip>($"MP3/Gamejam/{name}.mp3", ResType.Clip);
-        BgmAudioSource.clip = clip;
-        BgmAudioSource.Play();
     }
 
-    public static void PlaySound(string name)
+    public static void RemoveEvent(int eventId, EventListener listener)
     {
-        Instance._PlaySound(name);
+        if (listener == null)
+            return;
+
+        lock (Instance.syncRoot)
+        {
+            if (Instance.eventDic.TryGetValue(eventId, out var list))
+            {
+                list.Remove(listener);
+                if (list.Count == 0)
+                {
+                    Instance.eventDic.Remove(eventId);
+                    Instance.eventIdList.Remove(eventId);
+                }
+            }
+        }
     }
 
-    private void _PlaySound(string name)
+    public static void DispatchEvent(int eventId, params object[] args)
     {
-        AudioClip clip = Global.gApp.gResMgr.LoadAssets<AudioClip>($"MP3/Gamejam/{name}.mp3", ResType.Clip);
-        Sound.PlayOneShot(clip);
+        List<EventListener> listenersSnapshot = null;
+        lock (Instance.syncRoot)
+        {
+            if (Instance.eventDic.TryGetValue(eventId, out var list))
+            {
+                listenersSnapshot = new List<EventListener>(list);
+            }
+        }
+
+        if (listenersSnapshot == null)
+            return;
+
+        foreach (var listener in listenersSnapshot)
+        {
+            //try
+            {
+                listener(args);
+            }
+            //catch (System.Exception ex)
+            {
+               // Debug.LogError($"EventMgr.DispatchEvent: listener for eventId={eventId} threw exception: {ex}");
+            }
+        }
+    }
+
+    public static void ClearAll()
+    {
+        lock (Instance.syncRoot)
+        {
+            Instance.eventDic.Clear();
+            Instance.eventIdList.Clear();
+        }
     }
 }

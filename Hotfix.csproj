@@ -45,35 +45,52 @@
     <Analyzer Include="C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Mgr\UIManager\UIViewBase.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Systems\Global.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\ConfigClass\LevelMain.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\EndUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Mgr\SceneMgr.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\DialogueUI\DialogueUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Mgr\DialogueMgr.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LetterBoardUI\FragmentPiece.cs" />
-    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\Editor\UITool.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Tools\AutoRebuildUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\LoadingUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\FullTextPanel.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Systems\App.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\TextGameUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LoadingUI\LoadingUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\ConfigClass\EndShow.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LetterBoardUI\LetterBoardUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\GameDatas.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\GameUI.cs" />
-    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\UIConf.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LetterBoardUI\FragmentSlot.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\DialogueUI.cs" />
-    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Data\EventIds.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\LetterBoardUI.cs" />
-    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\UIMgr.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Systems\GameCtrl.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\DialogueUI\DelayedCallback.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\GameUI\GameUI.cs" />
-    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\UIViewInfo.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Systems\EventDispatcher.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Systems\UIUtil.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\TestUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\TextGameUI\TextGameUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\StartUI.cs" />
-    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\Editor\UIViewInfoEditor.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\ConfigClass\LetterOutCome.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\ConfigClass\LetterColumn.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\ConfigClass\LetterPiece.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\ConfigClass\GlobalCfg.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Mgr\UIManager\SoundMgr.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Data\EventConf.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\DialogueUI\BasicTypewriter.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\ConfigClass\LetterMain.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\PopTextPanel.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\GameUI\ItemCell.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\ConfigClass\Dialogue.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Mgr\UIManager\UIViewInfo.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\EndUI\EndUI.cs" />
-    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\UIManager\UIViewBase.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\StartUI\StartUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Data\UIConf.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\ConfigClass\LevelWinCase.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Mgr\UIManager\UIMgr.cs" />
     <None Include="Assets\Scripts\Runtime\Hotfix\Hotfix.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity 2022.3.62f2c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -752,6 +769,10 @@
     <ProjectReference Include="AOT.csproj">
       <Project>{c57aee67-bfc3-4e36-ff17-4bc98a2f1aa2}</Project>
       <Name>AOT</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.csproj">
+      <Project>{0610ba4a-a1b2-2451-024d-a3ae940c18c9}</Project>
+      <Name>UniTask</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

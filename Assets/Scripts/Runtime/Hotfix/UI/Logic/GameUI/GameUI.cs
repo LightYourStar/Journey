@@ -1,7 +1,5 @@
 ﻿using JO.UIManager;
-using System;
 using System.Collections.Generic;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 namespace UIManager
 {
@@ -152,10 +150,10 @@ namespace UIManager
                     int curIndex = moveList[i];
                     int newIndex = GetNewIndex(curIndex, dire);
                     ItemCell curItem = itemDic[curIndex];
-                    
+
                     ItemCell newItem = itemDic[newIndex];
 
-                    if (curItem != null && newItem != null) 
+                    if (curItem != null && newItem != null)
                     {
                         newItem.UpdateItemData(curItem.itemData);
                         curItem.UpdateItemData(null);
@@ -247,7 +245,7 @@ namespace UIManager
             }
             return index;
         }
-        
+
 
         private void CheckFinish()
         {
@@ -268,7 +266,7 @@ namespace UIManager
                 {
                     tempStr = string.Empty;
                 }
-                
+
 
             }
         }

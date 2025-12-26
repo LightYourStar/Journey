@@ -8,7 +8,6 @@ using UnityEngine.AddressableAssets.Initialization;
 using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.Networking;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement;
 
 namespace JO
 {
@@ -92,7 +91,7 @@ namespace JO
 
             Debug.Log("[BOOT] Addressables Base = " + aaBase);
 
-            ResourceManager.ExceptionHandler = (handle, ex) =>
+            UnityEngine.ResourceManagement.ResourceManager.ExceptionHandler = (handle, ex) =>
             {
                 Debug.LogError($"[Addressables] Exception. Op={handle.DebugName}, ex={ex}");
             };
