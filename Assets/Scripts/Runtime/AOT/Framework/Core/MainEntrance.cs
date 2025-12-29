@@ -78,11 +78,20 @@ namespace JO
                 // yield break;
             }
 
+            LocalVersion localVersion = LoadLocalVersion();
+            long localResVersion  = localVersion?.resVersion  ?? 0;
+            long localCodeVersion = localVersion?.codeVersion ?? 0;
+
+            bool needResUpdate  = manifest.resVersion  > localResVersion;
+            bool needCodeUpdate = manifest.codeVersion > localCodeVersion;
+
+            Debug.Log($"[BOOT] localRes={localResVersion}, remoteRes={manifest.resVersion}, needResUpdate={needResUpdate}");
+            Debug.Log($"[BOOT] localCode={localCodeVersion}, remoteCode={manifest.codeVersion}, needCodeUpdate={needCodeUpdate}");
+
             // 2) 根据 manifest 设置 BundlePath / Remote.LoadPath
             string aaBase = manifest.cdnBaseUrl.TrimEnd('/') + "/" +
                             manifest.addressablesRemotePath.Trim('/');
 
-            // 写回你自己的工具类，方便其他系统用
             MainIoUtils.BundlePath = aaBase;
 
             // 给 Addressables 的 Remote.LoadPath 里的 {MainApp.MainIoUtils.BundlePath} 赋值
@@ -102,20 +111,37 @@ namespace JO
             // 3) 初始化 Addressables
             yield return InitAddressablesCoroutine();
 
-            // 4) 检查并更新 Catalog
-            yield return UpdateCatalogsCoroutine();
+            // 4) 【按需】更新 Catalog + 预下载
+            if (needResUpdate)
+            {
+                Debug.Log("[BOOT] NeedResUpdate = true, run catalog update & pre-download.");
 
-            //资源版本变更处理
-            yield return HandleResVersionChangeCoroutine(manifest);
+                // 清理旧版本的缓存（只清预下载 label 对应的 bunlde）
+                yield return HandleResVersionChangeCoroutine(manifest);
 
-            // 5) 按 manifest 里的 labels 预下载资源
-            yield return PreDownloadLabelsCoroutine(manifest.preDownloadLabels);
+                // 更新 Catalog
+                yield return UpdateCatalogsCoroutine();
 
-            // 6) 下载热更 DLL 等（如果 manifest.files 里有 type = "hotfix" 的条目）
-            yield return DownloadHotfixFilesCoroutine(manifest);
+                // 预下载常用 label
+                yield return PreDownloadLabelsCoroutine(manifest.preDownloadLabels);
+            }
+            else
+            {
+                Debug.Log("[BOOT] Resource up to date, skip catalog update & predownload.");
+            }
 
-            // 加载 Hotfix 程序集并调用入口
-            LoadHotfixAssemblies();
+            // 5) 【按需】下载热更 DLL
+            if (needCodeUpdate)
+            {
+                Debug.Log("[BOOT] NeedCodeUpdate = true, download hotfix dll.");
+                yield return DownloadHotfixFilesCoroutine(manifest);
+            }
+            else
+            {
+                Debug.Log("[HOTFIX] Code up to date, try load local dll.");
+                // 不需要下新的，直接尝试加载本地上次留下的 dll
+                LoadHotfixAssemblies();
+            }
 
             // 7) 创建常驻节点
             yield return LoadKeepNodeCoroutine();
@@ -195,13 +221,17 @@ namespace JO
         }
 
 
+        /// <summary>
+        /// 更新 Catalog
+        /// </summary>
+        /// <returns></returns>
         private static IEnumerator UpdateCatalogsCoroutine()
         {
             Debug.Log("[BOOT] CheckForCatalogUpdates...");
-            var checkHandle = Addressables.CheckForCatalogUpdates(false);
+            AsyncOperationHandle<List<string>> checkHandle = Addressables.CheckForCatalogUpdates(false);
             yield return checkHandle;
 
-            var catalogs = checkHandle.Result;
+            List<string> catalogs = checkHandle.Result;
             Addressables.Release(checkHandle);
 
             if (catalogs == null || catalogs.Count == 0)
@@ -341,7 +371,7 @@ namespace JO
             if (!Directory.Exists(localRoot))
                 Directory.CreateDirectory(localRoot);
 
-            foreach (var file in manifest.files)
+            foreach (PatchManifestFile file in manifest.files)
             {
                 if (file == null)
                     continue;
@@ -396,8 +426,8 @@ namespace JO
                     }
                 }
 
-                // TODO：这里接入 HybridCLR 加载该 DLL
-                // HybridCLRUtil.LoadHotUpdateAssembly(localPath);
+                // 加载 Hotfix 程序集并调用入口
+                LoadHotfixAssemblies();
             }
 
             Debug.Log("[HOTFIX] All hotfix files ready.");
@@ -441,7 +471,6 @@ namespace JO
                     var asm = Assembly.Load(dllBytes);
                     Debug.Log("[HOTFIX] Loaded assembly: " + asm.FullName);
 
-                    // 找 JO.Hotfix.HotfixEntry.Init()
                     var entryType = asm.GetType("JO.HotfixEntry");
                     if (entryType != null)
                     {
@@ -532,7 +561,7 @@ namespace JO
             }
 
             // 完全一致，直接用原有缓存
-            if (local.resVersion == newResVer && local.codeVersion == newCodeVer)
+            if (local.resVersion == newResVer)
             {
                 Debug.Log("[BOOT] ResVersion unchanged: " + newResVer);
                 yield break;
@@ -551,7 +580,7 @@ namespace JO
                         continue;
 
                     Debug.Log("[BOOT] ClearDependencyCache label=" + label);
-                    var clearHandle = Addressables.ClearDependencyCacheAsync(label, true);
+                    AsyncOperationHandle<bool> clearHandle = Addressables.ClearDependencyCacheAsync(label, true);
 
                     while (!clearHandle.IsDone)
                         yield return null;
