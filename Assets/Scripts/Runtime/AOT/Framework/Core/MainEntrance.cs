@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using JO.Patch;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -28,6 +29,8 @@ namespace JO
         /// </summary>
         [SerializeField]
         private string m_ManifestUrl = "http://172.18.18.28:8000/game/android/manifest.json";
+
+        private static string s_HotfixDir => Path.Combine(Application.persistentDataPath, "hotfix");
 
         private void Awake()
         {
@@ -110,6 +113,9 @@ namespace JO
 
             // 6) 下载热更 DLL 等（如果 manifest.files 里有 type = "hotfix" 的条目）
             yield return DownloadHotfixFilesCoroutine(manifest);
+
+            // 加载 Hotfix 程序集并调用入口
+            LoadHotfixAssemblies();
 
             // 7) 创建常驻节点
             yield return LoadKeepNodeCoroutine();
@@ -330,7 +336,7 @@ namespace JO
             }
 
             string baseUrl = manifest.cdnBaseUrl.TrimEnd('/');
-            string localRoot = Path.Combine(Application.persistentDataPath, "hotfix");
+            string localRoot = s_HotfixDir;
 
             if (!Directory.Exists(localRoot))
                 Directory.CreateDirectory(localRoot);
@@ -404,6 +410,56 @@ namespace JO
             {
                 var hash = sha.ComputeHash(stream);
                 return System.BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+            }
+        }
+
+
+        private static void LoadHotfixAssemblies()
+        {
+            Debug.Log("[HOTFIX] LoadHotfixAssemblies" + s_HotfixDir);
+
+            if (!Directory.Exists(s_HotfixDir))
+            {
+                Debug.LogWarning("[HOTFIX] hotfix dir not exist: " + s_HotfixDir);
+                return;
+            }
+
+            var dllFiles = Directory.GetFiles(s_HotfixDir, "*.dll*");
+            if (dllFiles.Length == 0)
+            {
+                Debug.Log("[HOTFIX] No hotfix dll found in " + s_HotfixDir);
+                return;
+            }
+
+            foreach (string path in dllFiles)
+            {
+                try
+                {
+                    byte[] dllBytes = File.ReadAllBytes(path);
+
+                    // HybridCLR 会接管 Assembly.Load
+                    var asm = Assembly.Load(dllBytes);
+                    Debug.Log("[HOTFIX] Loaded assembly: " + asm.FullName);
+
+                    // 找 JO.Hotfix.HotfixEntry.Init()
+                    var entryType = asm.GetType("JO.HotfixEntry");
+                    if (entryType != null)
+                    {
+                        var initMethod = entryType.GetMethod(
+                            "Init",
+                            BindingFlags.Public | BindingFlags.Static);
+
+                        if (initMethod != null)
+                        {
+                            Debug.Log("[HOTFIX] Invoke HotfixEntry.Init()");
+                            initMethod.Invoke(null, null);
+                        }
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("[HOTFIX] Load assembly FAILED: " + path + "\n" + e);
+                }
             }
         }
 

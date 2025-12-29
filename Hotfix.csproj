@@ -55,14 +55,15 @@
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LetterBoardUI\FragmentPiece.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Tools\AutoRebuildUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\LoadingUI.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\Entry\HotfixEntry.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\FullTextPanel.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Systems\App.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\TextGameUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LoadingUI\LoadingUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\ConfigClass\EndShow.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\GameUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LetterBoardUI\LetterBoardUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\Game\Config\GameDatas.cs" />
-    <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\GameUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Logic\LetterBoardUI\FragmentSlot.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\DialogueUI.cs" />
     <Compile Include="Assets\Scripts\Runtime\Hotfix\UI\Gen\LetterBoardUI.cs" />

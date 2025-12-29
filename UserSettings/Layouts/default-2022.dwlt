@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 3440
     height: 1349
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Hierarchy
   m_RootView: {fileID: 7}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 0
     width: 927
     height: 605
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -95,8 +95,8 @@ MonoBehaviour:
     y: 605
     width: 1732
     height: 694
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 101, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 15}
@@ -273,8 +273,8 @@ MonoBehaviour:
     y: 0
     width: 316
     height: 1299
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -325,8 +325,8 @@ MonoBehaviour:
     y: 0
     width: 805
     height: 605
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -439,7 +439,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: acacffffb6acffffc2acfffff4b7fffffeb7ffff0ab8ffff40c0ffffe2c0ffff5ac3ffff18caffffb8caffff30cdffffbcd3ffff5ed4ffffd6d6ffff8eddffff2edeffffa6e0ffff14e7ffffb6e7ffff2eeaffffc8f0ffff68f1ffffe0f3ffff10fbfffff4ffffff
+      m_ExpandedIDs: 1e4effffc04effff1c51fffff858ffff9859fffff45bffff32dbffffd4dbffff4cdefffff8e4ffff98e5ffff10e8ffffd4f4ffff16fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -554,8 +554,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets/Scripts/UI/UIManager
+    m_Folders: []
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -572,7 +571,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 22780000
     m_LastClickedID: 30754
-    m_ExpandedIDs: 000000001c7800002078000022780000247800002878000034780000367800003a7800003c7800003e7800004078000042780000227a0000287a000048a4000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000187800001a7800001c7800001e78000020780000227800002478000026780000287800002a7800002c7800002e78000030780000327800003478000036780000387800003a7800003c7800003e780000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -600,21 +599,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000001c7800001e78000020780000227800002478000026780000287800002a7800002c7800002e780000307800003278000034780000387800003a7800003c7800003e78000040780000427800001e860000
+    m_ExpandedIDs: ffffffff00000000187800001a7800001c78000020780000227800002478000026780000287800002a7800002c7800002e7800003078000036780000387800003c7800003e780000167a00003a7a00003e7a00005a7a00005c7a0000e8910000fe9100000092000004920000149200002c920000369400004c9400005094000076940000969400009e940000a2940000c6940000d4940000de940000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: AddressableResMgr
+      m_OriginalName: AddressableResMgr
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 20770
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 12}
     m_SearchString: 
@@ -793,8 +792,8 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: -179, y: -26}
+      snapOffset: {x: -179, y: -26}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 3
       id: Tool Settings
       index: 0
@@ -819,7 +818,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-scene-view-toolbar
@@ -845,7 +844,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar

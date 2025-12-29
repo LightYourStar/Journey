@@ -844,11 +844,11 @@
     <Reference Include="Unity.VisualScripting.Shared.Editor">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualStudio.Editor">
-      <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualStudio.Editor">
+      <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
@@ -892,11 +892,11 @@
     <Reference Include="Unity.Addressables.Editor">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.Addressables.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Psdimporter.Editor">
-      <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.001">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Psdimporter.Editor">
+      <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mobile.AndroidLogcat.Editor">
       <HintPath>D:\BLearnProject\Journey\Library\ScriptAssemblies\Unity.Mobile.AndroidLogcat.Editor.dll</HintPath>

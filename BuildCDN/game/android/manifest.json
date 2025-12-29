@@ -9,5 +9,13 @@
         "boot",
         "common_ui"
     ],
-    "files": []
+    "files": [
+      {
+        "name": "hotfix/Hotfix.dll",
+        "url": "hotfix/Hotfix.dll",
+        "size": 123456,
+        "sha256": "",
+        "type": "hotfix"
+      }
+    ]
 }
