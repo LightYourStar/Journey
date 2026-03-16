@@ -49,6 +49,7 @@
     <Compile Include="Assets\Scripts\Editor\Excel2ScriptableObject\Editor\ExcelToScriptableObject.cs" />
     <Compile Include="Assets\Scripts\Editor\Build\BuildVersion.cs" />
     <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Editor\PackageExporter.cs" />
+    <Compile Include="Assets\Scripts\Editor\Build\BuildScript.cs" />
     <Compile Include="Assets\Scripts\Editor\UITool.cs" />
     <Compile Include="Assets\Scripts\ThirdPart\UniTask\Assets\Editor\EditorRunnerChecker.cs" />
     <Compile Include="Assets\Scripts\Editor\Build\BuildTools.cs" />
