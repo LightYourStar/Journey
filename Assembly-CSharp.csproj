@@ -59,6 +59,7 @@
     <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Library\PackageCache\com.unity.assetbundlebrowser@ad2a81ec30\package.json" />
     <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\AddressableAssetsData\link.xml" />
     <None Include="Assets\HybridCLRGenerate\link.xml" />
     <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\Scripts\ThirdPart\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />

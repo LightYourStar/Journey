@@ -12,6 +12,7 @@ namespace UIManager.Build
     public class BuildScript
     {
         // Jenkins 调用入口：-executeMethod UIManager.Build.BuildScript.BuildAndroid
+        [MenuItem("打包工具/build")]
         public static void BuildAndroid()
         {
             try
