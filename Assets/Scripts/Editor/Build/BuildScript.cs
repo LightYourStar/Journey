@@ -52,11 +52,24 @@ public class BuildScript
     private static void GenerateHybridCLR()
     {
         Debug.Log("[Build] HybridCLR GenerateAll...");
-        // 确保切换到 Android 目标
+
         if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
-        {
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android);
+
+        var installer = new HybridCLR.Editor.Installer.InstallerController();
+        if (!installer.HasInstalledHybridCLR())
+        {
+            // Jenkins 清空工作区后 LocalIl2CppData 目录丢失，但 il2cpp_plus_repo 在仓库中已包含
+            // hybridclr 子目录，直接用本地 repo 重新 install，避免 clone 网络依赖
+            string libil2cppSrcDir = Path.GetFullPath("HybridCLRData/il2cpp_plus_repo/libil2cpp");
+            if (!Directory.Exists(libil2cppSrcDir))
+                throw new Exception($"HybridCLR install source not found: {libil2cppSrcDir}\n请确保 HybridCLRData/il2cpp_plus_repo 已提交到仓库。");
+
+            Debug.Log($"[Build] HybridCLR not installed, installing from local: {libil2cppSrcDir}");
+            installer.InstallFromLocal(libil2cppSrcDir);
+            Debug.Log("[Build] HybridCLR install done.");
         }
+
         PrebuildCommand.GenerateAll();
         Debug.Log("[Build] HybridCLR GenerateAll done.");
     }
