@@ -1,165 +1,192 @@
 ﻿#if UNITY_EDITOR
 using System;
-using System.Collections.Generic;
 using System.IO;
+using HybridCLR.Editor;
+using HybridCLR.Editor.Commands;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
-using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-public static class BuildScript
+namespace UIManager.Build
 {
-    [MenuItem("打包工具/build")]
-    public static void BuildAndroid()
+    public class BuildScript
     {
-        try
+        // Addressables 中存放热更 dll(.bytes) 的目录，需加入 Addressables 组
+        private const string HotfixDllOutputDir = "Assets/ResBundle/HotfixDlls";
+        // AOT 补充元数据 dll(.bytes) 目录
+        private const string AOTDllOutputDir = "Assets/ResBundle/AOTDlls";
+
+        // Jenkins 调用入口：-executeMethod UIManager.Build.BuildScript.BuildAndroid
+        public static void BuildAndroid()
         {
-            Debug.Log("===== BuildAndroid Start =====");
-            Debug.Log($"[Build] ProjectPath: {Directory.GetCurrentDirectory()}");
-            Debug.Log($"[Build] ActiveBuildTarget: {EditorUserBuildSettings.activeBuildTarget}");
-            Debug.Log($"[Build] CommandLineArgs: {string.Join(" ", Environment.GetCommandLineArgs())}");
+            try
+            {
+                Debug.Log("===== BuildAndroid Start =====");
 
-            // 1. 切换到 Android 平台
-            SwitchToAndroid();
+                // 1. 应用版本号到 PlayerSettings
+                BuildTools.ApplyAppVersionToPlayerSettings();
 
-            // 2. 读取版本配置并应用
-            BuildTools.ApplyAppVersionToPlayerSettings();
+                // 2. HybridCLR：生成所有必要文件（桥接函数、裁剪配置、AOT泛型等）
+                GenerateHybridCLR();
 
-            // 3. 构建 Addressables
-            BuildAddressables();
+                // 3. 拷贝热更 dll 和 AOT 补充元数据 dll 到 Addressables 资源目录
+                CopyHotfixDllsToAddressables();
 
-            // 4. 构建 APK
-            BuildAPK();
+                // 4. 刷新 AssetDatabase，确保新拷贝的 .bytes 文件被识别
+                AssetDatabase.Refresh();
 
-            Debug.Log("===== BuildAndroid Success =====");
-            EditorApplication.Exit(0);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("===== BuildAndroid Failed =====");
-            Debug.LogError(e.ToString());
-            EditorApplication.Exit(1);
-        }
-    }
+                // 5. 构建 Addressables
+                BuildAddressables();
 
-    private static void SwitchToAndroid()
-    {
-        if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
-        {
-            Debug.Log("[Build] Already on Android target.");
-            return;
-        }
+                // 6. 构建 APK
+                BuildAPK();
 
-        Debug.Log("[Build] Switching build target to Android...");
-
-        bool success = EditorUserBuildSettings.SwitchActiveBuildTarget(
-            BuildTargetGroup.Android,
-            BuildTarget.Android);
-
-        if (!success)
-        {
-            throw new Exception("切换到 Android 平台失败。");
+                Debug.Log("===== BuildAndroid Success =====");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"BuildAndroid Failed: {e}");
+                EditorApplication.Exit(1);
+            }
         }
 
-        Debug.Log("[Build] Switched to Android target successfully.");
-    }
-
-    private static void BuildAddressables()
-    {
-        Debug.Log("[Build] Building Addressables...");
-
-        AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
-        if (settings == null)
-            throw new Exception("AddressableAssetSettings not found. 请确认 Addressables 已初始化。");
-
-        Debug.Log($"[Build] Addressables ActivePlayerDataBuilder: {settings.ActivePlayerDataBuilder?.Name}");
-
-        AddressableAssetSettings.CleanPlayerContent(settings.ActivePlayerDataBuilder);
-
-        AddressablesPlayerBuildResult result;
-        AddressableAssetSettings.BuildPlayerContent(out result);
-
-        if (!string.IsNullOrEmpty(result.Error))
-            throw new Exception($"Addressables build failed: {result.Error}");
-
-        Debug.Log($"[Build] Addressables built successfully. Duration: {result.Duration:F2}s");
-    }
-
-    private static void BuildAPK()
-    {
-        var version = BuildTools.LoadBuildVersion();
-        if (version == null)
-            throw new Exception("BuildVersion.asset not found.");
-
-        string outputDir = Path.GetFullPath("Build/Android");
-        Directory.CreateDirectory(outputDir);
-
-        string apkName = $"game_{version.AppVersion}_{version.AndroidVersionCode}.apk";
-        string outputPath = Path.Combine(outputDir, apkName);
-
-        Debug.Log($"[Build] AppVersion: {version.AppVersion}");
-        Debug.Log($"[Build] AndroidVersionCode: {version.AndroidVersionCode}");
-        Debug.Log($"[Build] OutputDir: {outputDir}");
-        Debug.Log($"[Build] OutputPath: {outputPath}");
-
-        string[] scenes = GetEnabledScenes();
-        Debug.Log($"[Build] EnabledScenes ({scenes.Length}):");
-        foreach (string scene in scenes)
+        private static void GenerateHybridCLR()
         {
-            Debug.Log($"[Build] Scene => {scene}");
+            Debug.Log("[Build] HybridCLR GenerateAll...");
+            // 确保切换到 Android 目标
+            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
+            {
+                EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android);
+            }
+            PrebuildCommand.GenerateAll();
+            Debug.Log("[Build] HybridCLR GenerateAll done.");
         }
 
-        BuildPlayerOptions buildOptions = new BuildPlayerOptions
+        private static void CopyHotfixDllsToAddressables()
         {
-            scenes = scenes,
-            locationPathName = outputPath,
-            target = BuildTarget.Android,
-            options = BuildOptions.None,
-        };
+            Debug.Log("[Build] Copying HybridCLR dlls to Addressables...");
 
-        if (Array.IndexOf(Environment.GetCommandLineArgs(), "-development") >= 0)
-        {
-            buildOptions.options |= BuildOptions.Development;
-            Debug.Log("[Build] Development build enabled.");
+            // 热更 dll 源目录
+            string hotfixSrcDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(BuildTarget.Android);
+            // AOT 补充元数据 dll 源目录
+            string aotSrcDir = SettingsUtil.GetAssembliesPostIl2CppStripDir(BuildTarget.Android);
+
+            CopyDllsAsBytes(hotfixSrcDir, HotfixDllOutputDir, SettingsUtil.HotUpdateAssemblyFilesExcludePreserved);
+            CopyAOTDllsAsBytes(aotSrcDir, AOTDllOutputDir);
+
+            Debug.Log("[Build] Dll copy done.");
         }
 
-        Debug.Log("[Build] Calling BuildPipeline.BuildPlayer...");
-
-        BuildReport report = BuildPipeline.BuildPlayer(buildOptions);
-        BuildSummary summary = report.summary;
-
-        Debug.Log($"[Build] Result: {summary.result}");
-        Debug.Log($"[Build] TotalErrors: {summary.totalErrors}");
-        Debug.Log($"[Build] TotalWarnings: {summary.totalWarnings}");
-        Debug.Log($"[Build] TotalSize: {summary.totalSize}");
-        Debug.Log($"[Build] TotalTime: {summary.totalTime}");
-
-        if (summary.result != BuildResult.Succeeded)
+        /// <summary>
+        /// 只拷贝 HybridCLR 配置中声明的热更程序集
+        /// </summary>
+        private static void CopyDllsAsBytes(string srcDir, string dstDir, System.Collections.Generic.List<string> dllNames)
         {
-            throw new Exception(
-                $"BuildPlayer failed: result={summary.result}, errors={summary.totalErrors}, warnings={summary.totalWarnings}");
+            Directory.CreateDirectory(dstDir);
+            foreach (string dllName in dllNames)
+            {
+                string src = Path.Combine(srcDir, dllName);
+                if (!File.Exists(src))
+                {
+                    Debug.LogWarning($"[Build] Hotfix dll not found, skip: {src}");
+                    continue;
+                }
+                string dst = Path.Combine(dstDir, dllName + ".bytes");
+                File.Copy(src, dst, overwrite: true);
+                Debug.Log($"[Build] Copied hotfix dll: {dllName} -> {dst}");
+            }
         }
 
-        Debug.Log($"[Build] APK built successfully: {outputPath}");
-    }
-
-    private static string[] GetEnabledScenes()
-    {
-        EditorBuildSettingsScene[] scenes = EditorBuildSettings.scenes;
-        List<string> list = new List<string>();
-
-        foreach (EditorBuildSettingsScene s in scenes)
+        /// <summary>
+        /// 拷贝 AOTGenericReferences 中声明的 AOT 补充元数据 dll
+        /// </summary>
+        private static void CopyAOTDllsAsBytes(string srcDir, string dstDir)
         {
-            if (s.enabled)
-                list.Add(s.path);
+            Directory.CreateDirectory(dstDir);
+            foreach (string dllName in AOTGenericReferences.PatchedAOTAssemblyList)
+            {
+                string src = Path.Combine(srcDir, dllName);
+                if (!File.Exists(src))
+                {
+                    Debug.LogWarning($"[Build] AOT dll not found, skip: {src}");
+                    continue;
+                }
+                string dst = Path.Combine(dstDir, dllName + ".bytes");
+                File.Copy(src, dst, overwrite: true);
+                Debug.Log($"[Build] Copied AOT dll: {dllName} -> {dst}");
+            }
         }
 
-        if (list.Count == 0)
-            throw new Exception("没有找到任何启用的场景，请在 Build Settings 中添加场景。");
+        private static void BuildAddressables()
+        {
+            Debug.Log("[Build] Building Addressables...");
 
-        return list.ToArray();
+            AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
+            if (settings == null)
+                throw new Exception("AddressableAssetSettings not found.");
+
+            AddressableAssetSettings.CleanPlayerContent(settings.ActivePlayerDataBuilder);
+
+            AddressablesPlayerBuildResult result;
+            AddressableAssetSettings.BuildPlayerContent(out result);
+
+            if (!string.IsNullOrEmpty(result.Error))
+                throw new Exception($"Addressables build failed: {result.Error}");
+
+            Debug.Log($"[Build] Addressables built. Duration: {result.Duration:F2}s");
+        }
+
+        private static void BuildAPK()
+        {
+            var version = BuildTools.LoadBuildVersion();
+            if (version == null)
+                throw new Exception("BuildVersion.asset not found.");
+
+            string outputDir = Path.GetFullPath("Build/Android");
+            Directory.CreateDirectory(outputDir);
+
+            string apkName = $"game_{version.AppVersion}_{version.AndroidVersionCode}.apk";
+            string outputPath = Path.Combine(outputDir, apkName);
+
+            Debug.Log($"[Build] Building APK => {outputPath}");
+
+            var buildOptions = new BuildPlayerOptions
+            {
+                scenes = GetEnabledScenes(),
+                locationPathName = outputPath,
+                target = BuildTarget.Android,
+                options = BuildOptions.None,
+            };
+
+            bool isDev = Array.IndexOf(Environment.GetCommandLineArgs(), "-development") >= 0;
+            if (isDev)
+            {
+                buildOptions.options |= BuildOptions.Development;
+                Debug.Log("[Build] Development build enabled.");
+            }
+
+            var report = BuildPipeline.BuildPlayer(buildOptions);
+            var summary = report.summary;
+
+            if (summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
+                throw new Exception($"BuildPlayer failed: result={summary.result}, errors={summary.totalErrors}");
+
+            Debug.Log($"[Build] APK done: {outputPath} ({summary.totalSize / 1024 / 1024} MB)");
+        }
+
+        private static string[] GetEnabledScenes()
+        {
+            var list = new System.Collections.Generic.List<string>();
+            foreach (var s in EditorBuildSettings.scenes)
+            {
+                if (s.enabled) list.Add(s.path);
+            }
+            if (list.Count == 0)
+                throw new Exception("Build Settings 中没有启用的场景。");
+            return list.ToArray();
+        }
     }
 }
 #endif
