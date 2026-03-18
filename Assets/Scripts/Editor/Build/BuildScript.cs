@@ -71,7 +71,7 @@ public class BuildScript
 
     private static void GenerateHybridCLR()
     {
-        Debug.Log("[Build] HybridCLR GenerateAll...");
+        Debug.Log("[Build] HybridCLR Generate...");
 
         if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android);
@@ -87,8 +87,27 @@ public class BuildScript
             installer.InstallFromLocal(libil2cppSrcDir);
         }
 
-        PrebuildCommand.GenerateAll();
-        Debug.Log("[Build] HybridCLR GenerateAll done.");
+        // 不用 PrebuildCommand.GenerateAll()，因为其中 StripAOTDllCommand 在
+        // batchmode + Android + CleanBuildCache 组合下会 native crash（Unity 2022 已知问题）。
+        // 手动按顺序调用各步骤，跳过 StripAOT，直接复用仓库中已有的裁剪结果。
+        var target = BuildTarget.Android;
+
+        CompileDllCommand.CompileDll(target);
+        Il2CppDefGeneratorCommand.GenerateIl2CppDef();
+        LinkGeneratorCommand.GenerateLinkXml(target);
+
+        // StripAOTDllCommand.GenerateStripedAOTDlls(target) 在 batchmode 下崩溃，跳过。
+        // AssembliesPostIl2CppStrip 目录需提前存在（首次需在编辑器内手动执行一次 HybridCLR/Generate/All）
+        string aotStripDir = SettingsUtil.GetAssembliesPostIl2CppStripDir(target);
+        if (!Directory.Exists(aotStripDir))
+            throw new Exception(
+                $"AOT strip dir not found: {aotStripDir}\n" +
+                "请先在 Unity Editor 中手动执行一次 HybridCLR/Generate/All 生成裁剪 AOT dll，然后将结果提交到仓库。");
+
+        MethodBridgeGeneratorCommand.GenerateMethodBridgeAndReversePInvokeWrapper(target);
+        AOTReferenceGeneratorCommand.GenerateAOTGenericReference(target);
+
+        Debug.Log("[Build] HybridCLR Generate done.");
     }
 
     private static void CopyHotfixDllsToAddressables()
