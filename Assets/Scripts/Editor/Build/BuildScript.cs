@@ -14,12 +14,6 @@ public class BuildScript
     private const string HotfixDllOutputDir = "Assets/ResBundle/HotfixDlls";
     private const string AOTDllOutputDir    = "Assets/ResBundle/AOTDlls";
 
-    public static void BuildAndroid()
-    {
-        GenerateAndPrepare();
-        Build();
-
-    }
 
     // ─────────────────────────────────────────────────────────────
     // Step 1: Jenkins 第一次调用
@@ -54,7 +48,7 @@ public class BuildScript
     //   -executeMethod BuildScript.BuildAndroid
     //   只做 APK 打包，不再触发任何 HybridCLR 生成
     // ─────────────────────────────────────────────────────────────
-    public static void Build()
+    public static void BuildAndroid()
     {
         try
         {
